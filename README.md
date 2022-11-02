@@ -19,6 +19,9 @@ if you are new entry users and just want to do a quick try, please follow below 
 ## HW list
 ![image](https://user-images.githubusercontent.com/94888960/199509153-a4fcbeea-f0ff-4b81-a92a-e968b690f963.png)
 ## SW list
+![image](https://user-images.githubusercontent.com/94888960/199515453-0f2a8478-a29a-49d1-a90e-05019bcebfbd.png)
+## Prequisition
+### RT kernel configuration
 
 
 
