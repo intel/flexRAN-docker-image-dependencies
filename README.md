@@ -483,21 +483,27 @@ EOF
 $ sh core_pining_kubelet_config.sh
   
 change yaml file - to include core configuration as below: 
-  ....
-    resources:  
-      requests:  
-        memory: "12Gi" 
-        cpu: 24
-        hugepages-1Gi: 8Gi  
-      limits:  
-        memory: "12Gi"
-        cpu: 24
-        hugepages-1Gi: 8Gi  
-   ....
+  ....  
+    resources:    
+      requests:   
+        memory: "12Gi"   
+        cpu: 24  
+        hugepages-1Gi: 8Gi    
+      limits:    
+        memory: "12Gi"  
+        cpu: 24  
+        hugepages-1Gi: 8Gi    
+   ....  
 
  and then run the same as last two chapters for timer mode test and xran mode test. 
   
+ ## Legal Disclaimer
+ for GPL/LGPL open source libs/components used by flexran docker image at run time. 
+ user can find the used version in below git hub repo: https://github.com/intel/flexRAN-docker-image-dependencies
+  
+ ## Customer Support Declare
+ for further support, please contact intel flexRAN marketing team and FAE/PAE team. 
  
-
+ 
 
 
