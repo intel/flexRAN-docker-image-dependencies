@@ -605,9 +605,9 @@ Change yaml file - to include core configuration as below:
   
 ## 3.7. Legal Disclaimer
 
- for GPL/LGPL open source libs/components used by flexran docker image at run time.
- User can find the used version in below git hub repo: <https://github.com/intel/flexRAN-docker-image-dependencies>
+For GPL/LGPL open source libs/components used by flexran docker image at run time.
+User can find the used version in below git hub repo: <https://github.com/intel/flexRAN-docker-image-dependencies>
   
 ## 3.8. Customer Support Declare
 
- for further support, please contact intel flexRAN marketing team and FAE/PAE team.
+For further support, please contact intel flexRAN marketing team and FAE/PAE team.
