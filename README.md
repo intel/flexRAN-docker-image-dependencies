@@ -5,7 +5,8 @@ leveraging the Intel® Advanced Vector Extensions 512 (Intel® AVX-512) instruct
 The multi-threaded design allows a single VDU software implementation to scale to meet the requirements of multiple deployment scenarios, 
 scaling from single small cells deployments, optimized D-RAN deployments or servicing large number of 5G cells in C-RAN pooled deployments. 
 As a SW implementation, it is also capable of supporting LTE, 5G narrow band and 5G massive MIMO deployments all from the same SW stack using the O-RAN 7.2x split.
-The FlexRAN™ software reference solution framework by Intel is shown in below diagram: 
+The FlexRAN™ software reference solution framework by Intel is shown in below diagram:  
+
 ![image](https://user-images.githubusercontent.com/94888960/199504629-afdf2518-f328-403d-8155-c38364d1d593.png)
 
 
@@ -13,7 +14,7 @@ The FlexRAN™ software reference solution framework by Intel is shown in below 
 Since 2022, intel FlexRAN team is publishing docker image to docker hub. The purpose is to make more and more potential users can easily enter the door and play the game. 
 the docker image include only binaries, runtime dependency libraries, configure files and several typical cases. If downloader had already been a NDA customer of Intel, 
 they can get corresponding source code, more test cases and supports from Intel FlexRAN team. 
-if you are new entry users and just want to do a quick try, please follow below guides. if you have further intention, please contact Intel FlexRAN Marketing team. 
+if you are new entry users and just want to do a quick try, please follow below guides. if you have further intention, please contact Intel FlexRAN Marketing team.  
 
 # User Guide
 ## HW list
@@ -22,119 +23,143 @@ if you are new entry users and just want to do a quick try, please follow below 
 ![image](https://user-images.githubusercontent.com/94888960/199515453-0f2a8478-a29a-49d1-a90e-05019bcebfbd.png)
 ## Prequisition
 ### RT kernel configuration
-#### Install TuneD:
+
+Install TuneD:
+```
 $ apt install tuned
 $ ln -s /boot/grub/grub.cfg /etc/grub2.cfg
 $ vim/etc/grub.d/00_tuned
-#### add following line to the end of this file
+```
+Add following line to the end of this file
+```
 echo "export tuned_params"
+```
+
 Edit /etc/tuned/realtime-variables.conf to add isolated_cores=1-27, 29-55:
-#### Examples:
+```
 isolated_cores=1-27,29-55
+```
 
 Edit /usr/lib/tuned/realtime/tuned.conf to add nohz and rcu related parameters:
-#### Examples:
-cmdline_realtime=+isolcpus=${managed_irq}${isolated_cores} intel_pstate=disable
-nosoftlockup tsc=nowatchdog nohz=on nohz_full=${isolated_cores} rcu_nocbs=${isolated_cores}
-#### Activate Real-Time Profile:
+```
+cmdline_realtime=+isolcpus=${managed_irq}${isolated_cores} intel_pstate=disable nosoftlockup tsc=nowatchdog nohz=on nohz_full=${isolated_cores} rcu_nocbs=${isolated_cores}
+```
+
+Activate Real-Time Profile:
+```
 $ tuned-adm profile realtime
-#### Check tuned_params:
+```
+
+Check tuned_params:
+```
 $ grep tuned_params= /boot/grub/grub.cfg
-set tuned_params="skew_tick=1 isolcpus=1-27,29-55 intel_pstate=disable nosoftlockup tsc=nowatchdog nohz=on
-nohz_full=1-27,29-55 rcu_nocbs=1-27,29-55 rcu_nocb_poll"
-#### The other parameters of this set of best known configuration can be simply added in /etc/defaut/grub as below:
-GRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt usbcore.autosuspend=-1 selinux=0 enforcing=0 nmi_watchdog=0
-crashkernel=auto softlockup_panic=0 audit=0 cgroup_disable=memory mce=off hugepagesz=1G hugepages=60
-hugepagesz=2M hugepages=0 default_hugepagesz=1G kthread_cpus=0,28 irqaffinity=0,28 "
-#### Apply the changes by update the grub configuration file.
+set tuned_params="skew_tick=1 isolcpus=1-27,29-55 intel_pstate=disable nosoftlockup tsc=nowatchdog nohz=on nohz_full=1-27,29-55 rcu_nocbs=1-27,29-55 rcu_nocb_poll"
+```
+The other parameters of this set of best known configuration can be simply added in /etc/defaut/grub as below:
+```
+GRUB_CMDLINE_LINUX="intel_iommu=on iommu=pt usbcore.autosuspend=-1 selinux=0 enforcing=0 nmi_watchdog=0 crashkernel=auto softlockup_panic=0 audit=0 cgroup_disable=memory mce=off hugepagesz=1G hugepages=60 hugepagesz=2M hugepages=0 default_hugepagesz=1G kthread_cpus=0,28 irqaffinity=0,28 "
+```
+
+Apply the changes by update the grub configuration file.
+```
 $ sudo update-grub
 $ sudo reboot
-#### Reboot the server, and check the kernel parameter, which should look like:
+```
+
+Reboot the server, and check the kernel parameter, which should look like:
+```
 $ cat /proc/cmdline
-BOOT_IMAGE=/vmlinuz-5.15.0-1009-realtime root=/dev/mapper/ubuntu--vg-ubuntu--lv ro intel_iommu=on iommu=pt
-usbcore.autosuspend=-1 selinux=0 enforcing=0 nmi_watchdog=0 crashkernel=auto softlockup_panic=0 audit=0
-cgroup_disable=memory mce=off hugepagesz=1G hugepages=60 hugepagesz=2M hugepages=0 default_hugepagesz=1G
-kthread_cpus=0,28 irqaffinity=0,28 skew_tick=1 isolcpus=1-27,29-55 intel_pstate=disable nosoftlockup
-tsc=nowatchdog nohz=on nohz_full=1-27,29-55 rcu_nocbs=1-27,29-55 rcu_nocb_poll
+BOOT_IMAGE=/vmlinuz-5.15.0-1009-realtime root=/dev/mapper/ubuntu--vg-ubuntu--lv ro intel_iommu=on iommu=pt usbcore.autosuspend=-1 selinux=0 enforcing=0 nmi_watchdog=0 crashkernel=auto softlockup_panic=0 audit=0 cgroup_disable=memory mce=off hugepagesz=1G hugepages=60 hugepagesz=2M hugepages=0 default_hugepagesz=1G kthread_cpus=0,28 irqaffinity=0,28 skew_tick=1 isolcpus=1-27,29-55 intel_pstate=disable nosoftlockup tsc=nowatchdog nohz=on nohz_full=1-27,29-55 rcu_nocbs=1-27,29-55 rcu_nocb_poll
+```
 
 ### Configure the CPU Frequency and cstate
-#### Further improve the deterministic and power efficiency
+
+Further improve the deterministic and power efficiency
+```
 $ apt install msr-tools
 $ cpupower frequency-set -g performance
-#### set cpu core frequency to 2.5Ghz 
+```
+
+Set cpu core frequency to 2.5Ghz 
+```
 $ wrmsr -a 0x199 0x1900
-#### set cpu uncore to fixed – maximum allowed. disable c6 and c1e
+```
+Set cpu uncore to fixed – maximum allowed. disable c6 and c1e
+```
 $ wrmsr -p a 0x620 0x1e1e
 $ cpupower idle-set -d 3
 $ cpupower idle-set -d 2
+```
 
-### kubernetes and docker installation 
-make sure specific version of kubernetes and docker had been installed. 
-usally we use kubeadm install and initialize kubernetes, please follow the steps listed in below link:
+### Kubernetes and docker installation 
+Make sure specific version of kubernetes and docker had been installed. 
+usally we use kubeadm install and initialize kubernetes, please follow the steps listed in below link:  
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
 
-### kubernetes plugins installation
+### Kubernetes plugins installation
 except for kubernetes and docker, below plugin is required: 
-#### multus 
-follow multus GitHub - https://github.com/intel/multus-cni
-#### calico 
-follow calico instruction on offical website -  http://docs.projectcalico.org
-#### SRIOV (cni and network device plugin)
-follow SRIOV instruction on SRIOV GitHub - https://github.com/intel/sriov-network-deviceplugin. 
 
-##### SRIOV DP configuration 
-below is an example to cofigure SRIOV DP configure map:  
-$cat <<EOF > deployments/configMap.yaml
-apiVersion: v1  
-kind: ConfigMap  
-metadata:  
-  name: sriovdp-config  
-  namespace: kube-system  
-data:  
-  config.json: |  
-    {  
-        "resourceList": [  
-             {  
-               "resourceName": "intel_fec_5g",  
-                "deviceType": "accelerator",  
-                "selectors": {  
-                    "vendors": ["8086"],  
-                    "devices": ["0d5d"]  
-                }  
-            },  
-            {  
-               "resourceName": "intel_sriov_odu",  
-                "selectors": {  
-                    "vendors": ["8086"],  
-                    "devices": ["154c"],  
-                    "drivers": ["vfio-pci"],  
-                    "pfNames": ["ens9f1"]  
-                }  
-            },  
-            {  
-               "resourceName": "intel_sriov_oru",  
-                "selectors": {  
-                    "vendors": ["8086"],  
-                    "devices": ["154c"],  
-                    "drivers": ["vfio-pci"],  
-                    "pfNames": ["ens9f0"]  
-                }  
-            }  
-        ]  
-    }  
-EOF  
-$ kubectl create -f deployments/configMap.yaml  
-$ kubectl create -f deployments/k8s-v1.16/sriovdp-daemonset.yaml  
-$ kubectl get node <your-k8s-worker> -o json | jq '.status.allocatable' 
-{  
-"cpu": "28",  
-"ephemeral-storage": "143494008185",  
-"hugepages-1Gi": "48Gi",  
-"intel.com/intel_sriov_dpdk": "4",  
-"intel.com/intel_sriov_netdevice": "4",  
-"memory": "48012416Ki",  
-"pods": "110"  
-}
+- multus: 
+  - follow multus GitHub - https://github.com/intel/multus-cni
+- calico: 
+  - follow calico instruction on offical website -  http://docs.projectcalico.org
+- SRIOV (cni and network device plugin): 
+  - follow SRIOV instruction on SRIOV GitHub - https://github.com/intel/sriov-network-deviceplugin. 
+  - SRIOV DP configuration  
+  below is an example to cofigure SRIOV DP configure map:  
+      ```
+      $cat <<EOF > deployments/configMap.yaml
+      apiVersion: v1  
+      kind: ConfigMap  
+      metadata:  
+        name: sriovdp-config  
+        namespace: kube-system  
+      data:  
+        config.json: |  
+          {  
+              "resourceList": [  
+                  {  
+                    "resourceName": "intel_fec_5g",  
+                      "deviceType": "accelerator",  
+                      "selectors": {  
+                          "vendors": ["8086"],  
+                          "devices": ["0d5d"]  
+                      }  
+                  },  
+                  {  
+                    "resourceName": "intel_sriov_odu",  
+                      "selectors": {  
+                          "vendors": ["8086"],  
+                          "devices": ["154c"],  
+                          "drivers": ["vfio-pci"],  
+                          "pfNames": ["ens9f1"]  
+                      }  
+                  },  
+                  {  
+                    "resourceName": "intel_sriov_oru",  
+                      "selectors": {  
+                          "vendors": ["8086"],  
+                          "devices": ["154c"],  
+                          "drivers": ["vfio-pci"],  
+                          "pfNames": ["ens9f0"]  
+                      }  
+                  }  
+              ]  
+          }  
+      EOF  
+      $ kubectl create -f deployments/configMap.yaml  
+      $ kubectl create -f deployments/k8s-v1.16/sriovdp-daemonset.yaml  
+      $ kubectl get node <your-k8s-worker> -o json | jq '.status.allocatable' 
+      {  
+      "cpu": "28",  
+      "ephemeral-storage": "143494008185",  
+      "hugepages-1Gi": "48Gi",  
+      "intel.com/intel_sriov_dpdk": "4",  
+      "intel.com/intel_sriov_netdevice": "4",  
+      "memory": "48012416Ki",  
+      "pods": "110"  
+      }
+      ```
 
 #### Native CPU Management
 enable this plugin by following below link:  
@@ -143,7 +168,8 @@ https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/
 
 ## Prepare env 
 ### DPDK pakage
-#### download DPDK 
+#### Download DPDK 
+```
 $ cd /opt/  
 $ wget http://static.dpdk.org/rel/dpdk-21.11.tar.xz  
 $ tar xf /opt/dpdk-21.11.tar.xz
@@ -153,16 +179,19 @@ $ meson build
 $ cd build
 $ ninja
 $ ninja install
+```
 
 #### build igb_uio
+```
 $ cd /opt
 $ git clone http://dpdk.org/git/dpdk-kmods
 $ cd dpdk-kmods/linux/igb_uio
 $ make
+```
 
 #### configure FEC and FVL SRIOV (example as below)
+```
 $ modprobe vfio-pci
-
 $ modprobe uio
 $ insmod /opt/dpdk-kmods/linux/igb_uio/igb_uio.ko
 $ lspci | grep 0d5c
@@ -219,6 +248,7 @@ $ kubectl get node dockerimagerel -o json | jq '.status.allocatable'
   "memory": "193028Mi",  
   "pods": "110"  
 }  
+```
 
 ## install flexRAN thru helm
 Intel flexRAN provide helm chart or yaml files for a sample deployment of flexran test. 
@@ -226,6 +256,7 @@ if user is NDA customer of flexRAN, they can get those helm chart or yaml files 
 if user is not NDA customer of flexRAN, below give two examples:
 
 ### example yaml file for flexran timer mode test
+```
 $ cat <<EOF > /opt/flexran_timer_mode.yaml  
 apiVersion: v1  
 kind: Pod  
@@ -237,18 +268,18 @@ spec:
   nodeSelector:  
      testnode: worker1  
   containers:  
-  \- securityContext:  
+  - securityContext:  
       privileged: false  
       capabilities:  
         add:  
-          \- IPC_LOCK  
-          \- SYS_NICE  
+          - IPC_LOCK  
+          - SYS_NICE  
     command: [ "/bin/bash", "-c", "--" ]  
     args: ["sh docker_entry.sh -m timer ; top"]  
     tty: true  
     stdin: true  
     env:  
-    \- name: LD_LIBRARY_PATH  
+    - name: LD_LIBRARY_PATH  
       value: /opt/oneapi/lib/intel64  
     image: flexran.docker.registry/flexran_vdu:22.07  
     name: flexran-l1app  
@@ -262,15 +293,15 @@ spec:
         intel.com/intel_fec_5g: '1'  
         hugepages-1Gi: 16Gi  
     volumeMounts:  
-    \- name: hugepage  
+    - name: hugepage  
       mountPath: /hugepages  
-    \- name: varrun  
+    - name: varrun  
       mountPath: /var/run/dpdk  
       readOnly: false  
-    \- name: tests  
+    - name: tests  
       mountPath: /root/flexran/tests  
       readOnly: false  
-  \- securityContext:  
+  - securityContext:  
       privileged: false  
       capabilities:  
         add:  
@@ -281,7 +312,7 @@ spec:
     tty: true  
     stdin: true  
     env:  
-    \- name: LD_LIBRARY_PATH  
+    - name: LD_LIBRARY_PATH  
       value: /opt/oneapi/lib/intel64  
     image: flexran.docker.registry/flexran_vdu:22.07  
     name: flexran-testmac  
@@ -293,32 +324,34 @@ spec:
         memory: "12Gi"  
         hugepages-1Gi: 8Gi  
     volumeMounts:  
-    \- name: hugepage  
+    - name: hugepage  
       mountPath: /hugepages  
-    \- name: varrun  
+    - name: varrun  
       mountPath: /var/run/dpdk  
       readOnly: false  
-    \- name: tests  
+    - name: tests  
       mountPath: /root/flexran/tests  
       readOnly: false  
   volumes:  
-  \- name: hugepage  
+  - name: hugepage  
     emptyDir:  
       medium: HugePages  
-  \- name: varrun  
+  - name: varrun  
     emptyDir: {}  
-  \- name: tests  
+  - name: tests  
     hostPath:  
       path: "/home/tmp_flexran/tests" 
 EOF  
   
 $ kubectl create -f /opt/flexran_timer_mode.yaml
-for timer mode, once the container created, corresponding timer mode test will be run up. and you can check POD status thru - "kubectl describe po pode-name".
+```
+
+for timer mode, once the container created, corresponding timer mode test will be run up. and you can check POD status thru - "kubectl describe po pode-name".  
 you can also check the status of RAN service thru - "kubectl logs -f pode-name -c container-name"
   
   
 ### example yaml file for xran mode test 
-$ cat <<EOF > /opt/flexran_xran_mode.yaml  
+```$ cat <<EOF > /opt/flexran_xran_mode.yaml  
 apiVersion: v1  
 kind: Pod  
 metadata:  
@@ -329,18 +362,18 @@ spec:
   nodeSelector:  
      testnode: worker1  
   containers:  
-  \- securityContext:  
+  - securityContext:  
       privileged: false  
       capabilities:  
         add:  
-          \- IPC_LOCK  
-          \- SYS_NICE  
+          - IPC_LOCK  
+          - SYS_NICE  
     command: [ "/bin/bash", "-c", "--" ]  
     args: ["sh docker_entry.sh -m xran ; top"]  
     tty: true  
     stdin: true  
     env:  
-    \- name: LD_LIBRARY_PATH  
+    - name: LD_LIBRARY_PATH  
       value: /opt/oneapi/lib/intel64  
     image: flexran.docker.registry/flexran_vdu:22.07  
     name: flexran-container1  
@@ -356,24 +389,24 @@ spec:
         intel.com/intel_sriov_odu: '2'
         hugepages-1Gi: 12Gi  
     volumeMounts:  
-    \- name: hugepage  
+    - name: hugepage  
       mountPath: /hugepages  
-    \- name: varrun  
+    - name: varrun  
       mountPath: /var/run/dpdk  
       readOnly: false  
-    \- name: tests  
+    - name: tests  
       mountPath: /root/flexran/tests  
       readOnly: false  
   volumes:  
-  \- name: hugepage  
+  - name: hugepage  
     emptyDir:  
       medium: HugePages  
-  \- name: varrun  
+  - name: varrun  
     emptyDir: {}  
-  \- name: tests  
+  - name: tests  
     hostPath:  
       path: "/home/tmp_flexran/tests"  
-\---
+---
 apiVersion: v1  
 kind: Pod  
 metadata:  
@@ -384,18 +417,18 @@ spec:
   nodeSelector:  
      testnode: worker1  
   containers:  
-  \- securityContext:  
+  - securityContext:  
       privileged: false  
       capabilities:  
         add:  
-          \- IPC_LOCK  
-          \- SYS_NICE  
+          - IPC_LOCK  
+          - SYS_NICE  
     command: [ "/bin/bash", "-c", "--" ]  
     args: ["sh docker_entry.sh -m xran ; top"]  
     tty: true  
     stdin: true  
     env:  
-    \- name: LD_LIBRARY_PATH  
+    - name: LD_LIBRARY_PATH  
       value: /opt/oneapi/lib/intel64  
     image: flexran.docker.registry/flexran_vdu:22.07  
     name: flexran-oru  
@@ -409,38 +442,41 @@ spec:
         intel.com/intel_sriov_oru: '2'  
         hugepages-1Gi: 16Gi  
     volumeMounts:  
-    \- name: hugepage  
+    - name: hugepage  
       mountPath: /hugepages  
-    \- name: varrun  
+    - name: varrun  
       mountPath: /var/run/dpdk  
       readOnly: false  
-    \- name: tests  
+    - name: tests  
       mountPath: /root/flexran/tests  
       readOnly: false  
   volumes:  
-  \- name: hugepage  
+  - name: hugepage  
     emptyDir:  
       medium: HugePages  
-  \- name: varrun  
+  - name: varrun  
     emptyDir: {}  
-  \- name: tests  
+  - name: tests  
     hostPath:  
       path: "/home/tmp_flexran/tests"  
 EOF  
-  
+
 $ kubectl create -f /opt/flexran_xran_mode.yaml
-for xran mode, once the container created, corresponding xran mode test will not be run up. 
-you need enter the pod and execute the test manually. 
+```
+
+for xran mode, once the container created, corresponding xran mode test will not be run up.
+you need enter the pod and execute the test manually.
 below chapter give the steps to run xRAN mode test:
 
-#### Open a new terminal, run the following command:
-$ kubectl exec -it pod-name – bash  
-  
+Open a new terminal, run the following command:
+```
+$ kubectl exec -it pod-name – bash    
 $ cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_20mhz_4x4/gnb/  
 $ ./l1.sh -oru
+```
   
-#### Open another new terminal, run the following command:
-$ kubectl exec -it pod-name – bash  
+Open another new terminal, run the following command:
+```$ kubectl exec -it pod-name – bash  
   
 $ cd flexran/bin/nr5g/gnb/testmac  
 $ ./l2.sh –testfile=../l1/orancfg/sub3_mu0_20mhz_4x4/gnb/testmac_clxsp_mu0_20mhz_hton_oru.cfg  
@@ -450,18 +486,18 @@ $ kubectl exec -it pod-name – bash
 
 $ cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_20mhz_4x4/oru/
 $ ./run_o_ru.sh
+```
 
 you can run the same for other two test cases. 
   
-## core pining 
+## Core pining 
 Intel docker image also provide the support of core pining feature. 
 In order to enable this feature, you need to make below configuration and change of yaml file.
 
-### configuration
+### Configuration
 
-#### to enable core pining feature
-  
-run below scripts to enable core pining feature. 
+enable core pining feature
+```
 $ cat  <<EOF > core_pining_kubelet_config.sh
 #!/bin/bash
 pathfile=/var/lib/kubelet/config.yaml
@@ -494,6 +530,7 @@ change yaml file - to include core configuration as below:
         cpu: 24  
         hugepages-1Gi: 8Gi    
    ....  
+```
 
  and then run the same as last two chapters for timer mode test and xran mode test. 
   
@@ -503,7 +540,3 @@ change yaml file - to include core configuration as below:
   
  ## Customer Support Declare
  for further support, please contact intel flexRAN marketing team and FAE/PAE team. 
- 
- 
-
-
