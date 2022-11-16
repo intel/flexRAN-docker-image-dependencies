@@ -144,7 +144,7 @@ Usally we use kubeadm install and initialize kubernetes, please follow the steps
   ```shell
   $ swapoff -a
   ```
-#### 3.3.3.1. Install dockerhub
+#### 3.3.3.1. Install docker
   ```shell
   $ apt-get install -y ca-certificates curl gnupg lsb-release
   $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
