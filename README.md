@@ -327,12 +327,12 @@ Except for kubernetes and docker, below plugin is required:
       }
       ```
 
-### 3.3.5. Native CPU Management
+  - Native CPU Manager 
 
-enable this plugin by following below link:  
+  enable this plugin by following below link:  
 
-- <https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/>  
-- <https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/> 
+  - <https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/>  
+  - <https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/> 
 
 ## 3.4. Prepare env
 
@@ -433,13 +433,28 @@ $ kubectl get node dockerimagerel -o json | jq '.status.allocatable'
 }  
 ```
 
-## 3.5. Install flexRAN thru helm
+## 3.5. docker image prepare
+
+login docker hub
+
+```shell
+$ docker login 
+```
+input you username/password of your account 
+
+pull docker image 
+
+```shell
+$ docker pull intel/intel-flexran-vdu:22.07
+```
+
+## 3.6. Install flexRAN thru helm
 
 Intel flexRAN provide helm chart or yaml files for a sample deployment of flexran test.
 If user is NDA customer of flexRAN, they can get those helm chart or yaml files from quarter by quarter release package.
 If user is not NDA customer of flexRAN, below give two examples:
 
-### 3.5.1. Example yaml file for flexran timer mode test
+### 3.6.1. Example yaml file for flexran timer mode test
 
 ```shell
 $ cat <<EOF > /opt/flexran_timer_mode.yaml  
@@ -472,12 +487,10 @@ spec:
       requests:  
         memory: "32Gi"  
         intel.com/intel_fec_5g: '1'  
-        cpu: 24
         hugepages-1Gi: 16Gi  
       limits:  
         memory: "32Gi"  
         intel.com/intel_fec_5g: '1' 
-        cpu: 24
         hugepages-1Gi: 16Gi  
     volumeMounts:  
     - name: hugepage  
@@ -507,11 +520,9 @@ spec:
       requests:  
         memory: "12Gi"  
         hugepages-1Gi: 8Gi
-        cpu: 8
       limits:  
         memory: "12Gi"  
         hugepages-1Gi: 8Gi
-        cpu: 8
     volumeMounts:  
     - name: hugepage  
       mountPath: /hugepages  
@@ -538,7 +549,7 @@ $ kubectl create -f /opt/flexran_timer_mode.yaml
 for timer mode, once the container created, corresponding timer mode test will be run up. And you can check POD status thru - "kubectl describe po pode-name".  
 You can also check the status of RAN service thru - "kubectl logs -f pode-name -c container-name"
   
-### 3.5.2. Example yaml file for xran mode test
+### 3.6.2. Example yaml file for xran mode test
 
 ```shell
 $ cat <<EOF > /opt/flexran_xran_mode.yaml  
@@ -572,13 +583,11 @@ spec:
         memory: "24Gi"  
         intel.com/intel_fec_5g: '1'  
         intel.com/intel_sriov_odu: '4'
-        cpu: 24
         hugepages-1Gi: 12Gi
       limits:
         memory: "24Gi"
         intel.com/intel_fec_5g: '1'
         intel.com/intel_sriov_odu: '4'
-        cpu: 24
         hugepages-1Gi: 12Gi  
     volumeMounts:  
     - name: hugepage  
@@ -628,12 +637,10 @@ spec:
       requests:  
         memory: "24Gi"  
         intel.com/intel_sriov_oru: '4'
-        cpu: 4
         hugepages-1Gi: 16Gi  
       limits:  
         memory: "24Gi"  
         intel.com/intel_sriov_oru: '4'
-        cpu: 4
         hugepages-1Gi: 16Gi  
     volumeMounts:  
     - name: hugepage  
@@ -686,12 +693,12 @@ $ ./run_o_ru.sh
 
 You can run the same for other two test cases.
   
-## 3.6. Core pining
+## 3.7. Core pining
 
 Intel docker image also provide the support of core pining feature.
 In order to enable this feature, you need to make below configuration and change of yaml file.
 
-### 3.6.1. Configuration
+### 3.7.1. Configuration
 
 Enable core pining feature
 
@@ -731,11 +738,11 @@ Change yaml file - to include core configuration as below:
 
  And then run the same as last two chapters for timer mode test and xran mode test.
   
-## 3.7. Legal Disclaimer
+## 3.8. Legal Disclaimer
 
 For GPL/LGPL open source libs/components used by flexran docker image at run time.
 User can find the used version in below git hub repo: <https://github.com/intel/flexRAN-docker-image-dependencies>
   
-## 3.8. Customer Support Declare
+## 3.9. Customer Support Declare
 
 For further support, please contact intel flexRAN marketing team and FAE/PAE team.
