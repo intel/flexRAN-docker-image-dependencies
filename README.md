@@ -171,14 +171,39 @@ Usally we use kubeadm install and initialize kubernetes, please follow the steps
   $ systemctl daemon-reload
   $ systemctl restart docker
   ```
-- proxy setting
+
+#### 3.3.3.1. Install kubernetes - thru kubeadm
+  Install kubernetes with below command: 
+  
+  ```shell
+  $ curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+  $ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" \
+  | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  $ apt update
+  $ apt install -y kubectl=1.21.2-00 kubeadm=1.21.2-00 kubelet=1.21.2-00 --allow-downgrades
+  $ systemctl enable --now kubelet
+  $ systemctl start kubelet
+  # Note: If it is the first time that you run this enable command and it reported "containerd.io: command not found" and
+  # "Failed to start kubele.service: Unit kubele.service not found", you need to execute from
+  # " apt install -y kubectl=1.21.2-00 kubeadm=1.21.2-00 kubelet=1.21.2-00 --allow-downgrades" once again, then it will work.
+  $ cat <<EOF > /etc/sysctl.d/k8s.conf
+  net.bridge.bridge-nf-call-ip6tables = 1
+  net.bridge.bridge-nf-call-iptables = 1
+  EOF
+  $ sysctl --system
+  ```
+  
+#### 3.3.3.1. configure docker and kubernetes to run behind proxy 
+
   add below environmental variables to ~/bashrc file for proxy setting: 
+  
   ```shell
   $ export http_proxy=<proxy_url>
   $ export https_proxy=<proxy_url>
   $ export no_proxy=localhost,127.0.0.1,10.244.0.0/16,10.96.0.0/12,<host_ip>                                    
   ```
   configure proxy for docker: (add below setting to /etc/systemd/system/docker.service.d/http-proxy.conf)
+  
   ```shell
   [Service]
   Environment="HTTP_PROXY=<proxy_url>"
@@ -186,33 +211,34 @@ Usally we use kubeadm install and initialize kubernetes, please follow the steps
   Environment="HTTPS_PROXY=<proxy_url>"
   ```
   reset docker 
+  
   ```shell
   $ systemctl daemon-reload
   $ systemctl restart docker
   ```
-
-
-
-# Setup daemon.
-$ cat > /etc/docker/daemon.json <<EOF
-{
-"exec-opts": ["native.cgroupdriver=systemd"],
-"log-driver": "json-file",
-"log-opts": {
-"max-size": "100m"
-},
-"storage-driver": "overlay2",
-"storage-opts": [
-"overlay2.override_kernel_check=true"
-]
-}
-EOF
-# Restart Docker
-# Note: If it is the first time that you run this enable command and it reports "containerd.io: command not found", you must execute the
-# following three commands once again, because docker must be started first.
-$ systemctl enable docker
-$ systemctl daemon-reload
-$ systemctl restart docker
+  
+#### 3.3.3.1. kubernetes initialization
+  use below command to initialize kubernetes cluster (master node)
+  
+  ```shell
+  $ kubeadm init --kubernetes-version=v1.21.11 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=<host_ip> --token-ttl 0 --ignore-preflight-errors=SystemVerification
+  $ mkdir -p $HOME/.kube
+  $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  $ export KUBECONFIG=/etc/kubernetes/admin.conf
+  ```
+  
+  join worker node to cluster
+  
+  ```shell
+  $ kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+  ```
+  
+  if worker is the same server as master, ignore the above join procedure. and use below command on master to mitigate the taint 
+  
+  ```shell
+  $ kubectl taint nodes --all node-role.kubernetes.io/master-
+  ```
 
 ### 3.3.4. Kubernetes plugins installation
 
