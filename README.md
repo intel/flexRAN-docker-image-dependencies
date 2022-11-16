@@ -139,6 +139,80 @@ cpupower idle-set -d 2
 Make sure specific version of kubernetes and docker had been installed.
 Usally we use kubeadm install and initialize kubernetes, please follow the steps listed in below link:  
 <https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/>
+#### 3.3.3.1. Configure operating system
+- turn off swap 
+  ```shell
+  $ swapoff -a
+  ```
+#### 3.3.3.1. Install dockerhub
+  ```shell
+  $ apt-get install -y ca-certificates curl gnupg lsb-release
+  $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  $ echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  $ apt-get update -y
+  $ apt-get install -y docker-ce=5:20.10.13~3-0~ubuntu-jammy docker-ce-cli=5:20.10.13~3-0~ubuntu-jammy containerd.io
+  $ mkdir /etc/docker
+  $ cat > /etc/docker/daemon.json <<EOF
+  {
+    "exec-opts": ["native.cgroupdriver=systemd"],
+    "log-driver": "json-file",
+    "log-opts": {
+      "max-size": "100m"
+    },
+    "storage-driver": "overlay2",
+    "storage-opts": [
+      "overlay2.override_kernel_check=true"
+    ]
+  }
+  EOF
+  $ systemctl enable docker
+  $ systemctl daemon-reload
+  $ systemctl restart docker
+  ```
+- proxy setting
+  add below environmental variables to ~/bashrc file for proxy setting: 
+  ```shell
+  $ export http_proxy=<proxy_url>
+  $ export https_proxy=<proxy_url>
+  $ export no_proxy=localhost,127.0.0.1,10.244.0.0/16,10.96.0.0/12,<host_ip>                                    
+  ```
+  configure proxy for docker: (add below setting to /etc/systemd/system/docker.service.d/http-proxy.conf)
+  ```shell
+  [Service]
+  Environment="HTTP_PROXY=<proxy_url>"
+  [Service]
+  Environment="HTTPS_PROXY=<proxy_url>"
+  ```
+  reset docker 
+  ```shell
+  $ systemctl daemon-reload
+  $ systemctl restart docker
+  ```
+
+
+
+# Setup daemon.
+$ cat > /etc/docker/daemon.json <<EOF
+{
+"exec-opts": ["native.cgroupdriver=systemd"],
+"log-driver": "json-file",
+"log-opts": {
+"max-size": "100m"
+},
+"storage-driver": "overlay2",
+"storage-opts": [
+"overlay2.override_kernel_check=true"
+]
+}
+EOF
+# Restart Docker
+# Note: If it is the first time that you run this enable command and it reports "containerd.io: command not found", you must execute the
+# following three commands once again, because docker must be started first.
+$ systemctl enable docker
+$ systemctl daemon-reload
+$ systemctl restart docker
 
 ### 3.3.4. Kubernetes plugins installation
 
