@@ -146,15 +146,35 @@ Except for kubernetes and docker, below plugin is required:
 
 - multus:
   - follow multus GitHub - <https://github.com/intel/multus-cni>
+  below is the command for installation:
+  ```shell
+  $ cd /root
+  $ git clone https://github.com/intel/multus-cni
+  $ cd /root/multus-cni/images
+  $ git checkout v3.3
+  $ kubectl create -f multus-daemonset.yml
+  ```
 - calico:
   - follow calico instruction on offical website -  <http://docs.projectcalico.org>
+  below is the command for installation: 
+  ```shell
+  $ wget https://docs.projectcalico.org/v3.18/manifests/calico.yaml --no-check-certificate
+  $ kubectl apply -f calico.yaml
+  ```
 - SRIOV (cni and network device plugin):
   - follow SRIOV instruction on SRIOV GitHub - <https://github.com/intel/sriov-network-deviceplugin>.
+  below is the command for installation:
+  ```shell
+  $ cd /root
+  $ git clone https://github.com/intel/sriov-network-device-plugin
+  $ docker pull nfvpe/sriov-device-plugin
+  ```
   - SRIOV DP configuration  
   below is an example to cofigure SRIOV DP configure map:  
 
       ```shell
-      $cat <<EOF > deployments/configMap.yaml
+      $ cd sriov-network-device-plugin 
+      $ cat <<EOF > deployments/configMap.yaml
       apiVersion: v1  
       kind: ConfigMap  
       metadata:  
@@ -212,7 +232,7 @@ Except for kubernetes and docker, below plugin is required:
 enable this plugin by following below link:  
 
 - <https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/>  
-- <https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/>  
+- <https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/> 
 
 ## 3.4. Prepare env
 
@@ -352,10 +372,12 @@ spec:
       requests:  
         memory: "32Gi"  
         intel.com/intel_fec_5g: '1'  
+        cpu: 24
         hugepages-1Gi: 16Gi  
       limits:  
         memory: "32Gi"  
-        intel.com/intel_fec_5g: '1'  
+        intel.com/intel_fec_5g: '1' 
+        cpu: 24
         hugepages-1Gi: 16Gi  
     volumeMounts:  
     - name: hugepage  
@@ -384,10 +406,12 @@ spec:
     resources:  
       requests:  
         memory: "12Gi"  
-        hugepages-1Gi: 8Gi  
+        hugepages-1Gi: 8Gi
+        cpu: 8
       limits:  
         memory: "12Gi"  
-        hugepages-1Gi: 8Gi  
+        hugepages-1Gi: 8Gi
+        cpu: 8
     volumeMounts:  
     - name: hugepage  
       mountPath: /hugepages  
@@ -447,12 +471,14 @@ spec:
       requests:  
         memory: "24Gi"  
         intel.com/intel_fec_5g: '1'  
-        intel.com/intel_sriov_odu: '2'  
+        intel.com/intel_sriov_odu: '4'
+        cpu: 24
         hugepages-1Gi: 12Gi
       limits:
         memory: "24Gi"
         intel.com/intel_fec_5g: '1'
-        intel.com/intel_sriov_odu: '2'
+        intel.com/intel_sriov_odu: '4'
+        cpu: 24
         hugepages-1Gi: 12Gi  
     volumeMounts:  
     - name: hugepage  
@@ -501,11 +527,13 @@ spec:
     resources:  
       requests:  
         memory: "24Gi"  
-        intel.com/intel_sriov_oru: '2'  
+        intel.com/intel_sriov_oru: '4'
+        cpu: 4
         hugepages-1Gi: 16Gi  
       limits:  
         memory: "24Gi"  
-        intel.com/intel_sriov_oru: '2'  
+        intel.com/intel_sriov_oru: '4'
+        cpu: 4
         hugepages-1Gi: 16Gi  
     volumeMounts:  
     - name: hugepage  
