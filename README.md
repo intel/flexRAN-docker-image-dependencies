@@ -57,7 +57,7 @@ Install TuneD:
 ```shell
 apt install tuned
 ln -s /boot/grub/grub.cfg /etc/grub2.cfg
-vim/etc/grub.d/00_tuned
+vim /etc/grub.d/00_tuned
 ```
 
 Add following line to the end of this file
@@ -433,6 +433,12 @@ $ kubectl get node dockerimagerel -o json | jq '.status.allocatable'
 }  
 ```
 
+label node 
+
+```shell
+$ kubectl label node dockerimagerel testnode=worker1
+```
+
 ## 3.5. docker image prepare
 
 login docker hub
@@ -440,7 +446,7 @@ login docker hub
 ```shell
 $ docker login 
 ```
-input you username/password of your account 
+input you username/password of your docker hub account 
 
 pull docker image 
 
@@ -475,7 +481,7 @@ spec:
           - IPC_LOCK  
           - SYS_NICE  
     command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m timer ; top"]  
+    args: ["sh docker_entry.sh -m timer ; cd /root/flexran/bin/nr5g/gnb/l1/; ./l1.sh -e ; top"]  
     tty: true  
     stdin: true  
     env:  
@@ -508,7 +514,7 @@ spec:
           - IPC_LOCK  
           - SYS_NICE  
     command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m timer ; top"]  
+    args: ["sh docker_entry.sh -m timer ; cd /root/flexran/bin/nr5g/gnb/testmac/; ./l2.sh --testfile=icelake-sp/icxsp.cfg; top"]  
     tty: true  
     stdin: true  
     env:  
@@ -667,12 +673,12 @@ $ kubectl create -f /opt/flexran_xran_mode.yaml
 
 For xran mode, once the container created, corresponding xran mode test will not be run up.
 You need enter the pod and execute the test manually.
-Below chapter give the steps to run xRAN mode test:
+Below chapter give the steps to run xRAN mode test case: "sub3_mu0_20mhz_4x4"
 
 Open a new terminal, run the following command:
 
 ```shell
-kubectl exec -it pod-name – bash    
+kubectl exec -it pod-name -- bash    
 cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_20mhz_4x4/gnb/  
 ./l1.sh -oru
 ```
@@ -680,18 +686,65 @@ cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_20mhz_4x4/gnb/
 Open another new terminal, run the following command:
 
 ```shell
-$ kubectl exec -it pod-name – bash    
+$ kubectl exec -it pod-name -- bash    
 $ cd flexran/bin/nr5g/gnb/testmac  
-$ ./l2.sh –testfile=../l1/orancfg/sub3_mu0_20mhz_4x4/gnb/testmac_clxsp_mu0_20mhz_hton_oru.cfg  
+$ ./l2.sh –testfile=testmac_clxsp_mu0_20mhz_hton_oru.cfg  
 
 #### Open another new terminal, run the following command:
-$ kubectl exec -it pod-name – bash
+$ kubectl exec -it pod-name -- bash
 
 $ cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_20mhz_4x4/oru/
 $ ./run_o_ru.sh
 ```
 
 You can run the same for other two test cases.
+for 2nd xRAN mode test case: "sub3_mu0_10mhz_4x4"
+
+Open a new terminal, run the following command:
+
+```shell
+kubectl exec -it pod-name -- bash    
+cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_10mhz_4x4/gnb/  
+./l1.sh -oru
+```
+  
+Open another new terminal, run the following command:
+
+```shell
+$ kubectl exec -it pod-name -- bash    
+$ cd flexran/bin/nr5g/gnb/testmac  
+$ ./l2.sh –testfile=testmac_clxsp_mu0_10mhz_hton_oru.cfg  
+
+#### Open another new terminal, run the following command:
+$ kubectl exec -it pod-name -- bash
+
+$ cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_10mhz_4x4/oru/
+$ ./run_o_ru.sh
+```
+
+for 3rd xRAN mode test case: "sub6_mu1_100mhz_4x4"
+
+Open a new terminal, run the following command:
+
+```shell
+kubectl exec -it pod-name -- bash    
+cd flexran/bin/nr5g/gnb/l1/orancfg/sub6_mu1_100mhz_4x4/gnb/  
+./l1.sh -oru
+```
+  
+Open another new terminal, run the following command:
+
+```shell
+$ kubectl exec -it pod-name -- bash    
+$ cd flexran/bin/nr5g/gnb/testmac  
+$ ./l2.sh –testfile=testmac_clxsp_mu1_100mhz_hton_oru.cfg  
+
+#### Open another new terminal, run the following command:
+$ kubectl exec -it pod-name -- bash
+
+$ cd flexran/bin/nr5g/gnb/l1/orancfg/sub6_mu1_100mhz_4x4/oru/
+$ ./run_o_ru.sh
+```
   
 ## 3.7. Core pining
 
@@ -722,21 +775,229 @@ systemctl restart kubelet
 EOF
   
 $ sh core_pining_kubelet_config.sh
-Change yaml file - to include core configuration as below: 
-  ....  
-    resources:    
-      requests:   
-        memory: "12Gi"   
-        cpu: 24  
-        hugepages-1Gi: 8Gi    
-      limits:    
-        memory: "12Gi"  
-        cpu: 24  
-        hugepages-1Gi: 8Gi    
-   ....  
 ```
 
- And then run the same as last two chapters for timer mode test and xran mode test.
+### 3.7.2. Example yaml file for flexran timer mode test (with core pining)
+
+```shell
+$ cat <<EOF > /opt/flexran_timer_mode.yaml  
+apiVersion: v1  
+kind: Pod  
+metadata:  
+  labels:  
+    app: flexran-binary-release  
+  name: flexran-binary-release  
+spec:  
+  nodeSelector:  
+     testnode: worker1  
+  containers:  
+  - securityContext:  
+      privileged: false  
+      capabilities:  
+        add:  
+          - IPC_LOCK  
+          - SYS_NICE  
+    command: [ "/bin/bash", "-c", "--" ]  
+    args: ["sh docker_entry.sh -m timer ; cd /root/flexran/bin/nr5g/gnb/l1/; ./l1.sh -e ; top"]  
+    tty: true  
+    stdin: true  
+    env:  
+    - name: LD_LIBRARY_PATH  
+      value: /opt/oneapi/lib/intel64  
+    image: flexran.docker.registry/flexran_vdu:22.07  
+    name: flexran-l1app  
+    resources:  
+      requests:  
+        memory: "32Gi" 
+        cpu: 24
+        intel.com/intel_fec_5g: '1'  
+        hugepages-1Gi: 16Gi  
+      limits:  
+        memory: "32Gi"  
+        cpu: 24
+        intel.com/intel_fec_5g: '1' 
+        hugepages-1Gi: 16Gi  
+    volumeMounts:  
+    - name: hugepage  
+      mountPath: /hugepages  
+    - name: varrun  
+      mountPath: /var/run/dpdk  
+      readOnly: false  
+    - name: tests  
+      mountPath: /root/flexran/tests  
+      readOnly: false  
+  - securityContext:  
+      privileged: false  
+      capabilities:  
+        add:  
+          - IPC_LOCK  
+          - SYS_NICE  
+    command: [ "/bin/bash", "-c", "--" ]  
+    args: ["sh docker_entry.sh -m timer ; cd /root/flexran/bin/nr5g/gnb/testmac/; ./l2.sh --testfile=icelake-sp/icxsp.cfg; top"]  
+    tty: true  
+    stdin: true  
+    env:  
+    - name: LD_LIBRARY_PATH  
+      value: /opt/oneapi/lib/intel64  
+    image: flexran.docker.registry/flexran_vdu:22.07  
+    name: flexran-testmac  
+    resources:  
+      requests:  
+        memory: "12Gi" 
+        cpu: 16
+        hugepages-1Gi: 8Gi
+      limits:  
+        memory: "12Gi" 
+        cpu: 16
+        hugepages-1Gi: 8Gi
+    volumeMounts:  
+    - name: hugepage  
+      mountPath: /hugepages  
+    - name: varrun  
+      mountPath: /var/run/dpdk  
+      readOnly: false  
+    - name: tests  
+      mountPath: /root/flexran/tests  
+      readOnly: false  
+  volumes:  
+  - name: hugepage  
+    emptyDir:  
+      medium: HugePages  
+  - name: varrun  
+    emptyDir: {}  
+  - name: tests  
+    hostPath:  
+      path: "/home/tmp_flexran/tests" 
+EOF  
+  
+$ kubectl create -f /opt/flexran_timer_mode.yaml
+```
+
+for timer mode, once the container created, corresponding timer mode test will be run up. And you can check POD status thru - "kubectl describe po pode-name".  
+You can also check the status of RAN service thru - "kubectl logs -f pode-name -c container-name"
+  
+### 3.7.3. Example yaml file for xran mode test (with core pining)
+
+```shell
+$ cat <<EOF > /opt/flexran_xran_mode.yaml  
+apiVersion: v1  
+kind: Pod  
+metadata:  
+  labels:  
+    app: flexran-binary-release  
+  name: flexran-binary-release  
+spec:  
+  nodeSelector:  
+     testnode: worker1  
+  containers:  
+  - securityContext:  
+      privileged: false  
+      capabilities:  
+        add:  
+          - IPC_LOCK  
+          - SYS_NICE  
+    command: [ "/bin/bash", "-c", "--" ]  
+    args: ["sh docker_entry.sh -m xran ; top"]  
+    tty: true  
+    stdin: true  
+    env:  
+    - name: LD_LIBRARY_PATH  
+      value: /opt/oneapi/lib/intel64  
+    image: flexran.docker.registry/flexran_vdu:22.07  
+    name: flexran-container1  
+    resources:  
+      requests:  
+        memory: "24Gi"  
+        cpu: 32
+        intel.com/intel_fec_5g: '1'  
+        intel.com/intel_sriov_odu: '4'
+        hugepages-1Gi: 12Gi
+      limits:
+        memory: "24Gi"
+        cpu: 32
+        intel.com/intel_fec_5g: '1'
+        intel.com/intel_sriov_odu: '4'
+        hugepages-1Gi: 12Gi  
+    volumeMounts:  
+    - name: hugepage  
+      mountPath: /hugepages  
+    - name: varrun  
+      mountPath: /var/run/dpdk  
+      readOnly: false  
+    - name: tests  
+      mountPath: /root/flexran/tests  
+      readOnly: false  
+  volumes:  
+  - name: hugepage  
+    emptyDir:  
+      medium: HugePages  
+  - name: varrun  
+    emptyDir: {}  
+  - name: tests  
+    hostPath:  
+      path: "/home/tmp_flexran/tests"  
+---
+apiVersion: v1  
+kind: Pod  
+metadata:  
+  labels:  
+    app: flexran-oru  
+  name: flexran-oru  
+spec:  
+  nodeSelector:  
+     testnode: worker1  
+  containers:  
+  - securityContext:  
+      privileged: false  
+      capabilities:  
+        add:  
+          - IPC_LOCK  
+          - SYS_NICE  
+    command: [ "/bin/bash", "-c", "--" ]  
+    args: ["sh docker_entry.sh -m xran ; top"]  
+    tty: true  
+    stdin: true  
+    env:  
+    - name: LD_LIBRARY_PATH  
+      value: /opt/oneapi/lib/intel64  
+    image: flexran.docker.registry/flexran_vdu:22.07  
+    name: flexran-oru  
+    resources:  
+      requests:  
+        memory: "24Gi"
+        cpu: 24
+        intel.com/intel_sriov_oru: '4'
+        hugepages-1Gi: 16Gi  
+      limits:  
+        memory: "24Gi" 
+        cpu: 24
+        intel.com/intel_sriov_oru: '4'
+        hugepages-1Gi: 16Gi  
+    volumeMounts:  
+    - name: hugepage  
+      mountPath: /hugepages  
+    - name: varrun  
+      mountPath: /var/run/dpdk  
+      readOnly: false  
+    - name: tests  
+      mountPath: /root/flexran/tests  
+      readOnly: false  
+  volumes:  
+  - name: hugepage  
+    emptyDir:  
+      medium: HugePages  
+  - name: varrun  
+    emptyDir: {}  
+  - name: tests  
+    hostPath:  
+      path: "/home/tmp_flexran/tests"  
+EOF  
+
+$ kubectl create -f /opt/flexran_xran_mode.yaml
+```
+
+For xran mode, once the container created, corresponding xran mode test will not be run up.
+You need enter the pod and execute the test manually. the steps are the same as the one without core pining 
   
 ## 3.8. Legal Disclaimer
 
