@@ -777,6 +777,25 @@ EOF
 $ sh core_pining_kubelet_config.sh
 ```
 
+Disable core pining feature:
+$ cat <<EOF > uncore_pining_kubelet_config.sh
+#!/bin/bash
+
+pathfile=/var/lib/kubelet/config.yaml
+#pathfile=config.yaml
+sed -i 's/cpuManagerReconcilePeriod: 10s/cpuManagerReconcilePeriod: 0s/g' $pathfile
+
+sed -i 's/cpuManagerPolicy: static/ /g' $pathfile
+sed -i 's/systemReserved:/ /g' $pathfile
+sed -i 's/cpu: 2000m/ /g' $pathfile
+sed -i 's/memory: 2000Mi/ /g' $pathfile
+sed -i 's/kubeReserved:/ /g' $pathfile
+sed -i 's/cpu: 1000m/ /g' $pathfile
+sed -i 's/memory: 1000Mi/ /g' $pathfile
+rm -rf /var/lib/kubelet/cpu_manager_state
+systemctl restart kubelet
+EOF
+
 ### 3.7.2. Example yaml file for flexran timer mode test (with core pining)
 
 ```shell
