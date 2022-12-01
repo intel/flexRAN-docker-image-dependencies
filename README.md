@@ -678,9 +678,9 @@ Below chapter give the steps to run xRAN mode test case: "sub3_mu0_20mhz_4x4"
 Open a new terminal, run the following command:
 
 ```shell
-kubectl exec -it pod-name -- bash    
-cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_20mhz_4x4/gnb/  
-./l1.sh -oru
+$ kubectl exec -it pod-name -- bash    
+$ cd flexran/bin/nr5g/gnb/l1/orancfg/sub3_mu0_20mhz_4x4/gnb/  
+$ ./l1.sh -oru
 ```
   
 Open another new terminal, run the following command:
@@ -727,9 +727,9 @@ for 3rd xRAN mode test case: "sub6_mu1_100mhz_4x4"
 Open a new terminal, run the following command:
 
 ```shell
-kubectl exec -it pod-name -- bash    
-cd flexran/bin/nr5g/gnb/l1/orancfg/sub6_mu1_100mhz_4x4/gnb/  
-./l1.sh -oru
+$ kubectl exec -it pod-name -- bash    
+$ cd flexran/bin/nr5g/gnb/l1/orancfg/sub6_mu1_100mhz_4x4/gnb/  
+$ ./l1.sh -oru
 ```
   
 Open another new terminal, run the following command:
@@ -753,7 +753,7 @@ In order to enable this feature, you need to make below configuration and change
 
 ### 3.7.1. Configuration
 
-Enable core pining feature
+Enable core pining feature： 
 
 ```shell
 $ cat  <<EOF > core_pining_kubelet_config.sh
