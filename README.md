@@ -464,89 +464,89 @@ If user is not NDA customer of flexRAN, below give two examples:
 
 ```shell
 $ cat <<EOF > /opt/flexran_timer_mode.yaml  
-apiVersion: v1  
-kind: Pod  
-metadata:  
-  labels:  
-    app: flexran-binary-release  
-  name: flexran-binary-release  
-spec:  
-  nodeSelector:  
-     testnode: worker1  
-  containers:  
-  - securityContext:  
-      privileged: false  
-      capabilities:  
-        add:  
-          - IPC_LOCK  
-          - SYS_NICE  
-    command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m timer ; cd /root/flexran/bin/nr5g/gnb/l1/; ./l1.sh -e ; top"]  
-    tty: true  
-    stdin: true  
-    env:  
-    - name: LD_LIBRARY_PATH  
-      value: /opt/oneapi/lib/intel64  
-    image: flexran.docker.registry/flexran_vdu:22.07  
-    name: flexran-l1app  
-    resources:  
-      requests:  
-        memory: "32Gi"  
-        intel.com/intel_fec_5g: '1'  
-        hugepages-1Gi: 16Gi  
-      limits:  
-        memory: "32Gi"  
-        intel.com/intel_fec_5g: '1' 
-        hugepages-1Gi: 16Gi  
-    volumeMounts:  
-    - name: hugepage  
-      mountPath: /hugepages  
-    - name: varrun  
-      mountPath: /var/run/dpdk  
-      readOnly: false  
-    - name: tests  
-      mountPath: /root/flexran/tests  
-      readOnly: false  
-  - securityContext:  
-      privileged: false  
-      capabilities:  
-        add:  
-          - IPC_LOCK  
-          - SYS_NICE  
-    command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m timer ; cd /root/flexran/bin/nr5g/gnb/testmac/; ./l2.sh --testfile=icelake-sp/icxsp.cfg; top"]  
-    tty: true  
-    stdin: true  
-    env:  
-    - name: LD_LIBRARY_PATH  
-      value: /opt/oneapi/lib/intel64  
-    image: flexran.docker.registry/flexran_vdu:22.07  
-    name: flexran-testmac  
-    resources:  
-      requests:  
-        memory: "12Gi"  
-        hugepages-1Gi: 8Gi
-      limits:  
-        memory: "12Gi"  
-        hugepages-1Gi: 8Gi
-    volumeMounts:  
-    - name: hugepage  
-      mountPath: /hugepages  
-    - name: varrun  
-      mountPath: /var/run/dpdk  
-      readOnly: false  
-    - name: tests  
-      mountPath: /root/flexran/tests  
-      readOnly: false  
-  volumes:  
-  - name: hugepage  
-    emptyDir:  
-      medium: HugePages  
-  - name: varrun  
-    emptyDir: {}  
-  - name: tests  
-    hostPath:  
-      path: "/home/tmp_flexran/tests" 
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: flexran-dockerimage_release
+  name: flexran-dockerimage-release
+spec:
+  nodeSelector:
+     testnode: worker1
+  containers:
+  - securityContext:
+      privileged: false
+      capabilities:
+        add:
+          - IPC_LOCK
+          - SYS_NICE
+    command: [ "/bin/bash", "-c", "--" ]
+    args: ["sh docker_entry.sh -m timer ; cd /home/flexran/bin/nr5g/gnb/l1/; ./l1.sh -e ; top"]
+    tty: true
+    stdin: true
+    env:
+    - name: LD_LIBRARY_PATH
+      value: /opt/oneapi/lib/intel64
+    image: amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
+    name: flexran-l1app
+    resources:
+      requests:
+        memory: "12Gi"
+        intel.com/intel_fec_5g: '1'
+        hugepages-1Gi: 16Gi
+      limits:
+        memory: "12Gi"
+        intel.com/intel_fec_5g: '1'
+        hugepages-1Gi: 16Gi
+    volumeMounts:
+    - name: hugepage
+      mountPath: /hugepages
+    - name: varrun
+      mountPath: /var/run/dpdk
+      readOnly: false
+    - name: tests
+      mountPath: /home/flexran/tests
+      readOnly: false
+  - securityContext:
+      privileged: false
+      capabilities:
+        add:
+          - IPC_LOCK
+          - SYS_NICE
+    command: [ "/bin/bash", "-c", "--" ]
+    args: ["sleep 10; sh docker_entry.sh -m timer ; cd /home/flexran/bin/nr5g/gnb/testmac/; ./l2.sh --testfile=icelake-sp/icxsp.cfg; top"]
+    tty: true
+    stdin: true
+    env:
+    - name: LD_LIBRARY_PATH
+      value: /opt/oneapi/lib/intel64
+    image: amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
+    name: flexran-testmac
+    resources:
+      requests:
+        memory: "6Gi"
+        hugepages-1Gi: 4Gi
+      limits:
+        memory: "6Gi"
+        hugepages-1Gi: 4Gi
+    volumeMounts:
+    - name: hugepage
+      mountPath: /hugepages
+    - name: varrun
+      mountPath: /var/run/dpdk
+      readOnly: false
+    - name: tests
+      mountPath: /home/flexran/tests
+      readOnly: false
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
+  - name: varrun
+    emptyDir: {}
+  - name: tests
+    hostPath:
+      path: "/home/tmp_flexran/tests"
 EOF  
   
 $ kubectl create -f /opt/flexran_timer_mode.yaml
@@ -559,113 +559,113 @@ You can also check the status of RAN service thru - "kubectl logs -f pode-name -
 
 ```shell
 $ cat <<EOF > /opt/flexran_xran_mode.yaml  
-apiVersion: v1  
-kind: Pod  
-metadata:  
-  labels:  
-    app: flexran-binary-release  
-  name: flexran-binary-release  
-spec:  
-  nodeSelector:  
-     testnode: worker1  
-  containers:  
-  - securityContext:  
-      privileged: false  
-      capabilities:  
-        add:  
-          - IPC_LOCK  
-          - SYS_NICE  
-    command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m xran ; top"]  
-    tty: true  
-    stdin: true  
-    env:  
-    - name: LD_LIBRARY_PATH  
-      value: /opt/oneapi/lib/intel64  
-    image: flexran.docker.registry/flexran_vdu:22.07  
-    name: flexran-container1  
-    resources:  
-      requests:  
-        memory: "24Gi"  
-        intel.com/intel_fec_5g: '1'  
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: flexran-vdu
+  name: flexran-vdu
+spec:
+  nodeSelector:
+     testnode: worker1
+  containers:
+  - securityContext:
+      privileged: false
+      capabilities:
+        add:
+          - IPC_LOCK
+          - SYS_NICE
+    command: [ "/bin/bash", "-c", "--" ]
+    args: ["sh docker_entry.sh -m xran ; top"]
+    tty: true
+    stdin: true
+    env:
+    - name: LD_LIBRARY_PATH
+      value: /opt/oneapi/lib/intel64
+    image: amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
+    name: flexran-vdu
+    resources:
+      requests:
+        memory: "24Gi"
+        intel.com/intel_fec_5g: '1'
         intel.com/intel_sriov_odu: '4'
-        hugepages-1Gi: 12Gi
+        hugepages-1Gi: 24Gi
       limits:
         memory: "24Gi"
         intel.com/intel_fec_5g: '1'
         intel.com/intel_sriov_odu: '4'
-        hugepages-1Gi: 12Gi  
-    volumeMounts:  
-    - name: hugepage  
-      mountPath: /hugepages  
-    - name: varrun  
-      mountPath: /var/run/dpdk  
-      readOnly: false  
-    - name: tests  
-      mountPath: /root/flexran/tests  
-      readOnly: false  
-  volumes:  
-  - name: hugepage  
-    emptyDir:  
-      medium: HugePages  
-  - name: varrun  
-    emptyDir: {}  
-  - name: tests  
-    hostPath:  
-      path: "/home/tmp_flexran/tests"  
+        hugepages-1Gi: 24Gi
+    volumeMounts:
+    - name: hugepage
+      mountPath: /hugepages
+    - name: varrun
+      mountPath: /var/run/dpdk
+      readOnly: false
+    - name: tests
+      mountPath: /home/flexran/tests
+      readOnly: false
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
+  - name: varrun
+    emptyDir: {}
+  - name: tests
+    hostPath:
+      path: "/home/tmp_flexran/tests"
 ---
-apiVersion: v1  
-kind: Pod  
-metadata:  
-  labels:  
-    app: flexran-oru  
-  name: flexran-oru  
-spec:  
-  nodeSelector:  
-     testnode: worker1  
-  containers:  
-  - securityContext:  
-      privileged: false  
-      capabilities:  
-        add:  
-          - IPC_LOCK  
-          - SYS_NICE  
-    command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m xran ; top"]  
-    tty: true  
-    stdin: true  
-    env:  
-    - name: LD_LIBRARY_PATH  
-      value: /opt/oneapi/lib/intel64  
-    image: flexran.docker.registry/flexran_vdu:22.07  
-    name: flexran-oru  
-    resources:  
-      requests:  
-        memory: "24Gi"  
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: flexran-vru
+  name: flexran-vru
+spec:
+  nodeSelector:
+     testnode: worker1
+  containers:
+  - securityContext:
+      privileged: false
+      capabilities:
+        add:
+          - IPC_LOCK
+          - SYS_NICE
+    command: [ "/bin/bash", "-c", "--" ]
+    args: ["sh docker_entry.sh -m xran ; top"]
+    tty: true
+    stdin: true
+    env:
+    - name: LD_LIBRARY_PATH
+      value: /opt/oneapi/lib/intel64
+    image: amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
+    name: flexran-oru
+    resources:
+      requests:
+        memory: "24Gi"
         intel.com/intel_sriov_oru: '4'
-        hugepages-1Gi: 16Gi  
-      limits:  
-        memory: "24Gi"  
+        hugepages-1Gi: 16Gi
+      limits:
+        memory: "24Gi"
         intel.com/intel_sriov_oru: '4'
-        hugepages-1Gi: 16Gi  
-    volumeMounts:  
-    - name: hugepage  
-      mountPath: /hugepages  
-    - name: varrun  
-      mountPath: /var/run/dpdk  
-      readOnly: false  
-    - name: tests  
-      mountPath: /root/flexran/tests  
-      readOnly: false  
-  volumes:  
-  - name: hugepage  
-    emptyDir:  
-      medium: HugePages  
-  - name: varrun  
-    emptyDir: {}  
-  - name: tests  
-    hostPath:  
-      path: "/home/tmp_flexran/tests"  
+        hugepages-1Gi: 16Gi
+    volumeMounts:
+    - name: hugepage
+      mountPath: /hugepages
+    - name: varrun
+      mountPath: /var/run/dpdk
+      readOnly: false
+    - name: tests
+      mountPath: /home/flexran/tests
+      readOnly: false
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
+  - name: varrun
+    emptyDir: {}
+  - name: tests
+    hostPath:
+      path: "/home/tmp_flexran/tests"
 EOF  
 
 $ kubectl create -f /opt/flexran_xran_mode.yaml
@@ -800,93 +800,89 @@ EOF
 
 ```shell
 $ cat <<EOF > /opt/flexran_timer_mode.yaml  
-apiVersion: v1  
-kind: Pod  
-metadata:  
-  labels:  
-    app: flexran-binary-release  
-  name: flexran-binary-release  
-spec:  
-  nodeSelector:  
-     testnode: worker1  
-  containers:  
-  - securityContext:  
-      privileged: false  
-      capabilities:  
-        add:  
-          - IPC_LOCK  
-          - SYS_NICE  
-    command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m timer ; cd /root/flexran/bin/nr5g/gnb/l1/; ./l1.sh -e ; top"]  
-    tty: true  
-    stdin: true  
-    env:  
-    - name: LD_LIBRARY_PATH  
-      value: /opt/oneapi/lib/intel64  
-    image: flexran.docker.registry/flexran_vdu:22.07  
-    name: flexran-l1app  
-    resources:  
-      requests:  
-        memory: "32Gi" 
-        cpu: 24
-        intel.com/intel_fec_5g: '1'  
-        hugepages-1Gi: 16Gi  
-      limits:  
-        memory: "32Gi"  
-        cpu: 24
-        intel.com/intel_fec_5g: '1' 
-        hugepages-1Gi: 16Gi  
-    volumeMounts:  
-    - name: hugepage  
-      mountPath: /hugepages  
-    - name: varrun  
-      mountPath: /var/run/dpdk  
-      readOnly: false  
-    - name: tests  
-      mountPath: /root/flexran/tests  
-      readOnly: false  
-  - securityContext:  
-      privileged: false  
-      capabilities:  
-        add:  
-          - IPC_LOCK  
-          - SYS_NICE  
-    command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m timer ; cd /root/flexran/bin/nr5g/gnb/testmac/; ./l2.sh --testfile=icelake-sp/icxsp.cfg; top"]  
-    tty: true  
-    stdin: true  
-    env:  
-    - name: LD_LIBRARY_PATH  
-      value: /opt/oneapi/lib/intel64  
-    image: flexran.docker.registry/flexran_vdu:22.07  
-    name: flexran-testmac  
-    resources:  
-      requests:  
-        memory: "12Gi" 
-        cpu: 16
-        hugepages-1Gi: 8Gi
-      limits:  
-        memory: "12Gi" 
-        cpu: 16
-        hugepages-1Gi: 8Gi
-    volumeMounts:  
-    - name: hugepage  
-      mountPath: /hugepages  
-    - name: varrun  
-      mountPath: /var/run/dpdk  
-      readOnly: false  
-    - name: tests  
-      mountPath: /root/flexran/tests  
-      readOnly: false  
-  volumes:  
-  - name: hugepage  
-    emptyDir:  
-      medium: HugePages  
-  - name: varrun  
-    emptyDir: {}  
-  - name: tests  
-    hostPath:  
-      path: "/home/tmp_flexran/tests" 
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: flexran-dockerimage_release
+  name: flexran-dockerimage-release
+spec:
+  nodeSelector:
+     testnode: worker1
+  containers:
+  - securityContext:
+      privileged: false
+      capabilities:
+        add:
+          - IPC_LOCK
+          - SYS_NICE
+    command: [ "/bin/bash", "-c", "--" ]
+    args: ["sh docker_entry.sh -m timer ; cd /home/flexran/bin/nr5g/gnb/l1/; ./l1.sh -e ; top"]
+    tty: true
+    stdin: true
+    env:
+    - name: LD_LIBRARY_PATH
+      value: /opt/oneapi/lib/intel64
+    image: amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
+    name: flexran-l1app
+    resources:
+      requests:
+        memory: "12Gi"
+        intel.com/intel_fec_5g: '1'
+        hugepages-1Gi: 16Gi
+      limits:
+        memory: "12Gi"
+        intel.com/intel_fec_5g: '1'
+        hugepages-1Gi: 16Gi
+    volumeMounts:
+    - name: hugepage
+      mountPath: /hugepages
+    - name: varrun
+      mountPath: /var/run/dpdk
+      readOnly: false
+    - name: tests
+      mountPath: /home/flexran/tests
+      readOnly: false
+  - securityContext:
+      privileged: false
+      capabilities:
+        add:
+          - IPC_LOCK
+          - SYS_NICE
+    command: [ "/bin/bash", "-c", "--" ]
+    args: ["sleep 10; sh docker_entry.sh -m timer ; cd /home/flexran/bin/nr5g/gnb/testmac/; ./l2.sh --testfile=icelake-sp/icxsp.cfg; top"]
+    tty: true
+    stdin: true
+    env:
+    - name: LD_LIBRARY_PATH
+      value: /opt/oneapi/lib/intel64
+    image: amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
+    name: flexran-testmac
+    resources:
+      requests:
+        memory: "6Gi"
+        hugepages-1Gi: 4Gi
+      limits:
+        memory: "6Gi"
+        hugepages-1Gi: 4Gi
+    volumeMounts:
+    - name: hugepage
+      mountPath: /hugepages
+    - name: varrun
+      mountPath: /var/run/dpdk
+      readOnly: false
+    - name: tests
+      mountPath: /home/flexran/tests
+      readOnly: false
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
+  - name: varrun
+    emptyDir: {}
+  - name: tests
+    hostPath:
+      path: "/home/tmp_flexran/tests"
 EOF  
   
 $ kubectl create -f /opt/flexran_timer_mode.yaml
@@ -899,117 +895,113 @@ You can also check the status of RAN service thru - "kubectl logs -f pode-name -
 
 ```shell
 $ cat <<EOF > /opt/flexran_xran_mode.yaml  
-apiVersion: v1  
-kind: Pod  
-metadata:  
-  labels:  
-    app: flexran-binary-release  
-  name: flexran-binary-release  
-spec:  
-  nodeSelector:  
-     testnode: worker1  
-  containers:  
-  - securityContext:  
-      privileged: false  
-      capabilities:  
-        add:  
-          - IPC_LOCK  
-          - SYS_NICE  
-    command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m xran ; top"]  
-    tty: true  
-    stdin: true  
-    env:  
-    - name: LD_LIBRARY_PATH  
-      value: /opt/oneapi/lib/intel64  
-    image: flexran.docker.registry/flexran_vdu:22.07  
-    name: flexran-container1  
-    resources:  
-      requests:  
-        memory: "24Gi"  
-        cpu: 32
-        intel.com/intel_fec_5g: '1'  
-        intel.com/intel_sriov_odu: '4'
-        hugepages-1Gi: 12Gi
-      limits:
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: flexran-vdu
+  name: flexran-vdu
+spec:
+  nodeSelector:
+     testnode: worker1
+  containers:
+  - securityContext:
+      privileged: false
+      capabilities:
+        add:
+          - IPC_LOCK
+          - SYS_NICE
+    command: [ "/bin/bash", "-c", "--" ]
+    args: ["sh docker_entry.sh -m xran ; top"]
+    tty: true
+    stdin: true
+    env:
+    - name: LD_LIBRARY_PATH
+      value: /opt/oneapi/lib/intel64
+    image: amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
+    name: flexran-vdu
+    resources:
+      requests:
         memory: "24Gi"
-        cpu: 32
         intel.com/intel_fec_5g: '1'
         intel.com/intel_sriov_odu: '4'
-        hugepages-1Gi: 12Gi  
-    volumeMounts:  
-    - name: hugepage  
-      mountPath: /hugepages  
-    - name: varrun  
-      mountPath: /var/run/dpdk  
-      readOnly: false  
-    - name: tests  
-      mountPath: /root/flexran/tests  
-      readOnly: false  
-  volumes:  
-  - name: hugepage  
-    emptyDir:  
-      medium: HugePages  
-  - name: varrun  
-    emptyDir: {}  
-  - name: tests  
-    hostPath:  
-      path: "/home/tmp_flexran/tests"  
----
-apiVersion: v1  
-kind: Pod  
-metadata:  
-  labels:  
-    app: flexran-oru  
-  name: flexran-oru  
-spec:  
-  nodeSelector:  
-     testnode: worker1  
-  containers:  
-  - securityContext:  
-      privileged: false  
-      capabilities:  
-        add:  
-          - IPC_LOCK  
-          - SYS_NICE  
-    command: [ "/bin/bash", "-c", "--" ]  
-    args: ["sh docker_entry.sh -m xran ; top"]  
-    tty: true  
-    stdin: true  
-    env:  
-    - name: LD_LIBRARY_PATH  
-      value: /opt/oneapi/lib/intel64  
-    image: flexran.docker.registry/flexran_vdu:22.07  
-    name: flexran-oru  
-    resources:  
-      requests:  
+        hugepages-1Gi: 24Gi
+      limits:
         memory: "24Gi"
-        cpu: 24
+        intel.com/intel_fec_5g: '1'
+        intel.com/intel_sriov_odu: '4'
+        hugepages-1Gi: 24Gi
+    volumeMounts:
+    - name: hugepage
+      mountPath: /hugepages
+    - name: varrun
+      mountPath: /var/run/dpdk
+      readOnly: false
+    - name: tests
+      mountPath: /home/flexran/tests
+      readOnly: false
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
+  - name: varrun
+    emptyDir: {}
+  - name: tests
+    hostPath:
+      path: "/home/tmp_flexran/tests"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: flexran-vru
+  name: flexran-vru
+spec:
+  nodeSelector:
+     testnode: worker1
+  containers:
+  - securityContext:
+      privileged: false
+      capabilities:
+        add:
+          - IPC_LOCK
+          - SYS_NICE
+    command: [ "/bin/bash", "-c", "--" ]
+    args: ["sh docker_entry.sh -m xran ; top"]
+    tty: true
+    stdin: true
+    env:
+    - name: LD_LIBRARY_PATH
+      value: /opt/oneapi/lib/intel64
+    image: amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
+    name: flexran-oru
+    resources:
+      requests:
+        memory: "24Gi"
         intel.com/intel_sriov_oru: '4'
-        hugepages-1Gi: 16Gi  
-      limits:  
-        memory: "24Gi" 
-        cpu: 24
+        hugepages-1Gi: 16Gi
+      limits:
+        memory: "24Gi"
         intel.com/intel_sriov_oru: '4'
-        hugepages-1Gi: 16Gi  
-    volumeMounts:  
-    - name: hugepage  
-      mountPath: /hugepages  
-    - name: varrun  
-      mountPath: /var/run/dpdk  
-      readOnly: false  
-    - name: tests  
-      mountPath: /root/flexran/tests  
-      readOnly: false  
-  volumes:  
-  - name: hugepage  
-    emptyDir:  
-      medium: HugePages  
-  - name: varrun  
-    emptyDir: {}  
-  - name: tests  
-    hostPath:  
-      path: "/home/tmp_flexran/tests"  
+        hugepages-1Gi: 16Gi
+    volumeMounts:
+    - name: hugepage
+      mountPath: /hugepages
+    - name: varrun
+      mountPath: /var/run/dpdk
+      readOnly: false
+    - name: tests
+      mountPath: /home/flexran/tests
+      readOnly: false
+  volumes:
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
+  - name: varrun
+    emptyDir: {}
+  - name: tests
+    hostPath:
+      path: "/home/tmp_flexran/tests"
 EOF  
 
 $ kubectl create -f /opt/flexran_xran_mode.yaml
