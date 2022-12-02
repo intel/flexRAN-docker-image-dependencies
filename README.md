@@ -441,17 +441,27 @@ $ kubectl label node dockerimagerel testnode=worker1
 
 ## 3.5. docker image prepare
 
-login docker hub
+login docker hub (for external user)
 
 ```shell
 $ docker login 
 ```
 input you username/password of your docker hub account 
 
-pull docker image 
+```shell
+$ docker pull intel/flexran_vdu:v22.07
+```
+
+for internal user (intel PAE), they can use another way to download docker image from internal harbor: 
+login docker hub 
 
 ```shell
-$ docker pull intel/intel-flexran-vdu:22.07
+$ docker login amr-registry-pre.caas.intel.com
+```
+input your username/passward of your harbor account
+
+```shell
+$ docker pull amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
 ```
 
 ## 3.6. Install flexRAN thru helm
@@ -491,13 +501,13 @@ spec:
     name: flexran-l1app
     resources:
       requests:
-        memory: "12Gi"
+        memory: "6Gi"
         intel.com/intel_fec_5g: '1'
-        hugepages-1Gi: 16Gi
+        hugepages-1Gi: 8Gi
       limits:
-        memory: "12Gi"
+        memory: "6Gi"
         intel.com/intel_fec_5g: '1'
-        hugepages-1Gi: 16Gi
+        hugepages-1Gi: 8Gi
     volumeMounts:
     - name: hugepage
       mountPath: /hugepages
@@ -586,15 +596,15 @@ spec:
     name: flexran-vdu
     resources:
       requests:
-        memory: "24Gi"
+        memory: "12Gi"
         intel.com/intel_fec_5g: '1'
         intel.com/intel_sriov_odu: '4'
-        hugepages-1Gi: 24Gi
+        hugepages-1Gi: 16Gi
       limits:
-        memory: "24Gi"
+        memory: "12Gi"
         intel.com/intel_fec_5g: '1'
         intel.com/intel_sriov_odu: '4'
-        hugepages-1Gi: 24Gi
+        hugepages-1Gi: 16Gi
     volumeMounts:
     - name: hugepage
       mountPath: /hugepages
@@ -641,13 +651,13 @@ spec:
     name: flexran-oru
     resources:
       requests:
-        memory: "24Gi"
+        memory: "4Gi"
         intel.com/intel_sriov_oru: '4'
-        hugepages-1Gi: 16Gi
+        hugepages-1Gi: 6Gi
       limits:
-        memory: "24Gi"
+        memory: "4Gi"
         intel.com/intel_sriov_oru: '4'
-        hugepages-1Gi: 16Gi
+        hugepages-1Gi: 6Gi
     volumeMounts:
     - name: hugepage
       mountPath: /hugepages
