@@ -698,7 +698,7 @@ Open another new terminal, run the following command:
 ```shell
 $ kubectl exec -it pod-name -- bash    
 $ cd flexran/bin/nr5g/gnb/testmac  
-$ ./l2.sh –testfile=testmac_clxsp_mu0_20mhz_hton_oru.cfg  
+$ ./l2.sh --testfile=testmac_clxsp_mu0_20mhz_hton_oru.cfg  
 
 #### Open another new terminal, run the following command:
 $ kubectl exec -it pod-name -- bash
@@ -723,7 +723,7 @@ Open another new terminal, run the following command:
 ```shell
 $ kubectl exec -it pod-name -- bash    
 $ cd flexran/bin/nr5g/gnb/testmac  
-$ ./l2.sh –testfile=testmac_clxsp_mu0_10mhz_hton_oru.cfg  
+$ ./l2.sh --testfile=testmac_clxsp_mu0_10mhz_hton_oru.cfg  
 
 #### Open another new terminal, run the following command:
 $ kubectl exec -it pod-name -- bash
@@ -747,7 +747,7 @@ Open another new terminal, run the following command:
 ```shell
 $ kubectl exec -it pod-name -- bash    
 $ cd flexran/bin/nr5g/gnb/testmac  
-$ ./l2.sh –testfile=testmac_clxsp_mu1_100mhz_hton_oru.cfg  
+$ ./l2.sh --testfile=testmac_clxsp_mu1_100mhz_hton_oru.cfg  
 
 #### Open another new terminal, run the following command:
 $ kubectl exec -it pod-name -- bash
@@ -838,10 +838,12 @@ spec:
     resources:
       requests:
         memory: "12Gi"
+        cpu: 24
         intel.com/intel_fec_5g: '1'
         hugepages-1Gi: 16Gi
       limits:
         memory: "12Gi"
+        cpu: 24
         intel.com/intel_fec_5g: '1'
         hugepages-1Gi: 16Gi
     volumeMounts:
@@ -871,9 +873,11 @@ spec:
     resources:
       requests:
         memory: "6Gi"
+        cpu: 16
         hugepages-1Gi: 4Gi
       limits:
         memory: "6Gi"
+        cpu: 16
         hugepages-1Gi: 4Gi
     volumeMounts:
     - name: hugepage
@@ -933,11 +937,13 @@ spec:
     resources:
       requests:
         memory: "24Gi"
+        cpu: 24
         intel.com/intel_fec_5g: '1'
         intel.com/intel_sriov_odu: '4'
         hugepages-1Gi: 24Gi
       limits:
         memory: "24Gi"
+        cpu: 24
         intel.com/intel_fec_5g: '1'
         intel.com/intel_sriov_odu: '4'
         hugepages-1Gi: 24Gi
@@ -988,10 +994,12 @@ spec:
     resources:
       requests:
         memory: "24Gi"
+        cpu: 16
         intel.com/intel_sriov_oru: '4'
         hugepages-1Gi: 16Gi
       limits:
         memory: "24Gi"
+        cpu: 16
         intel.com/intel_sriov_oru: '4'
         hugepages-1Gi: 16Gi
     volumeMounts:
