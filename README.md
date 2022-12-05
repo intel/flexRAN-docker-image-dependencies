@@ -467,8 +467,8 @@ $ docker pull amr-registry-pre.caas.intel.com/flexran/flexran_vdu:v22.07
 ## 3.6. Install flexRAN thru helm
 
 Intel flexRAN provide helm chart or yaml files for a sample deployment of flexran test.
-If user is NDA customer of flexRAN, they can get those helm chart or yaml files from quarter by quarter release package.
-If user is not NDA customer of flexRAN, below give two examples:
+If user is NDA customer of flexRAN, they can get those helm chart or yaml files from 22.07 release package.
+If user is Non-NDA customer of flexRAN, below give two examples:
 
 ### 3.6.1. Example yaml file for flexran timer mode test
 
@@ -561,6 +561,7 @@ EOF
   
 $ kubectl create -f /opt/flexran_timer_mode.yaml
 ```
+note: test cases of timer mode are not included into the docker image by default. if user want to run timer mode, they need contact FlexRAN account team/PAE team to get the 22.07 release package, extract it and copy the sub-folder "test" into host folder - "/home/tmp_flexran". and then execute the pod creation work. 
 
 for timer mode, once the container created, corresponding timer mode test will be run up. And you can check POD status thru - "kubectl describe po pode-name".  
 You can also check the status of RAN service thru - "kubectl logs -f pode-name -c container-name"
