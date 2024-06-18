@@ -1,0 +1,3 @@
+utils/aa-notify.desktop /etc/xdg/autostart
+usr/sbin/aa-notify /usr/bin/
+etc/apparmor/notify.conf /etc/apparmor/

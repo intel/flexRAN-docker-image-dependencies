@@ -1,0 +1,5 @@
+man/hugeadm.8
+man/hugectl.8
+man/hugeedit.8
+man/ld.hugetlbfs.1
+man/pagesize.1

@@ -1,0 +1,3 @@
+usr/include/*
+usr/lib/*/libhugetlbfs.a
+usr/lib/*/libhugetlbfs.so

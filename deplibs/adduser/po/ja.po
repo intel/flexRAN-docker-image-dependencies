@@ -1,0 +1,1159 @@
+# adduser
+# Copyright (C) 1999-2016
+# Kenshi Muto <kmuto@debian.org>, 2010-
+# Tomohiro KUBOTA <kubota@debian.org>, 1999-2010
+# Akira Yoshiyama <yosshy@debian.or.jp>, 1999
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: adduser 3.115\n"
+"Report-Msgid-Bugs-To: adduser@packages.debian.org\n"
+"POT-Creation-Date: 2023-06-09 12:08+0200\n"
+"PO-Revision-Date: 2016-06-01 08:32+0900\n"
+"Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
+"Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../adduser:190
+msgid "Only root may add a user or group to the system."
+msgstr "root だけがシステムにユーザまたはグループを追加できます。"
+
+#: ../adduser:227 ../deluser:176
+msgid "Only one or two names allowed."
+msgstr "1つまたは2つの名前だけが許可されます。"
+
+#: ../adduser:234
+msgid "Specify only one name in this mode."
+msgstr "このモードでは1つだけ名前を指定してください。"
+
+#: ../adduser:238
+msgid "addgroup with two arguments is an unspecified operation."
+msgstr ""
+
+#: ../adduser:263
+msgid "The --group, --ingroup, and --gid options are mutually exclusive."
+msgstr "--group, --ingroup, --gid オプションは同時に複数指定できません。"
+
+#: ../adduser:269
+msgid "The home dir must be an absolute path."
+msgstr "ホームディレクトリは絶対パスでなければなりません。"
+
+#: ../adduser:275
+#, fuzzy, perl-format
+#| msgid "Warning: The home dir %s you specified already exists."
+msgid "The home dir %s you specified already exists.\n"
+msgstr "警告: 指定されたホームディレクトリ %s はすでに存在しています。"
+
+#: ../adduser:278
+#, fuzzy, perl-format
+#| msgid "Warning: The home dir %s you specified can't be accessed: %s"
+msgid "The home dir %s you specified can't be accessed: %s\n"
+msgstr "警告: 指定されたホームディレクトリ %s にアクセスできません: %s"
+
+#: ../adduser:347
+#, perl-format
+msgid "The group `%s' already exists as a system group. Exiting."
+msgstr ""
+"グループ `%s' はシステムグループとしてすでに存在しています。終了します。"
+
+#: ../adduser:352
+#, perl-format
+msgid "The group `%s' already exists and is not a system group. Exiting."
+msgstr ""
+"グループ `%s' はすでに存在しており、システムグループではありません。終了しま"
+"す。"
+
+#: ../adduser:357
+#, perl-format
+msgid "The group `%s' already exists, but has a different GID. Exiting."
+msgstr ""
+"グループ `%s' はすでに存在していますが、異なるグループ ID を持っています。終"
+"了します。"
+
+#: ../adduser:362 ../adduser:399
+#, perl-format
+msgid "The GID `%s' is already in use."
+msgstr "グループ ID `%s' はすでに使用されています。"
+
+#: ../adduser:373
+#, fuzzy, perl-format
+#| msgid ""
+#| "No GID is available in the range %d-%d (FIRST_SYS_GID - LAST_SYS_GID).\n"
+msgid "No GID is available in the range %d-%d (FIRST_SYS_GID - LAST_SYS_GID)."
+msgstr ""
+"範囲 %d-%d (FIRST_SYS_GID - LAST_SYS_GID) の範囲には利用可能な GID がありませ"
+"ん。\n"
+
+#: ../adduser:375 ../adduser:418
+#, perl-format
+msgid "The group `%s' was not created."
+msgstr "`%s' グループは作成されませんでした。"
+
+#: ../adduser:381 ../adduser:423
+#, perl-format
+msgid "Adding group `%s' (GID %d) ..."
+msgstr "グループ `%s' (グループ ID %d) を追加しています..."
+
+#: ../adduser:395 ../adduser:1081
+#, perl-format
+msgid "The group `%s' already exists."
+msgstr "グループ `%s' はすでに存在しています。"
+
+#: ../adduser:416
+#, perl-format
+msgid "No GID is available in the range %d-%d (FIRST_GID - LAST_GID)."
+msgstr ""
+"範囲 %d-%d (FIRST_GID - LAST_GID) の範囲には利用可能な GID がありません。"
+
+#: ../adduser:437 ../deluser:266
+#, perl-format
+msgid "The user `%s' does not exist."
+msgstr "ユーザ `%s' は存在しません。"
+
+#: ../adduser:441 ../adduser:857 ../adduser:1091 ../deluser:408 ../deluser:411
+#, perl-format
+msgid "The group `%s' does not exist."
+msgstr "グループ `%s' が存在しません。"
+
+#: ../adduser:446 ../adduser:861
+#, perl-format
+msgid "The user `%s' is already a member of `%s'."
+msgstr "ユーザ `%s' はすでにグループ `%s' のメンバーです。"
+
+#: ../adduser:450 ../adduser:867
+#, perl-format
+msgid "Adding user `%s' to group `%s' ..."
+msgstr "ユーザ `%s' をグループ `%s' に追加しています..."
+
+#: ../adduser:469
+#, fuzzy, perl-format
+#| msgid "The system user `%s' already exists. Exiting."
+msgid "The system user `%s' already exists. Exiting.\n"
+msgstr "システムユーザ `%s' はすでに存在しています。終了します。"
+
+#: ../adduser:472
+#, fuzzy, perl-format
+#| msgid "The user `%s' already exists, and is not a system user."
+msgid "The user `%s' already exists, but is not a system user. Exiting."
+msgstr "ユーザ `%s' はすでに存在しており、システムユーザではありません。"
+
+#: ../adduser:476
+#, perl-format
+msgid "The user `%s' already exists with a different UID. Exiting."
+msgstr "ユーザ `%s' はすでに異なるユーザ ID で存在します。終了します。"
+
+#: ../adduser:490
+#, fuzzy, perl-format
+#| msgid ""
+#| "No UID/GID pair is available in the range %d-%d (FIRST_SYS_UID - "
+#| "LAST_SYS_UID).\n"
+msgid ""
+"No UID/GID pair is available in the range %d-%d (FIRST_SYS_UID - "
+"LAST_SYS_UID)."
+msgstr ""
+"範囲 %d-%d (FIRST_SYS_UID - LAST_SYS_UID) の範囲には利用可能な UID/GID のペア"
+"がありません。\n"
+
+#: ../adduser:493 ../adduser:509 ../adduser:591 ../adduser:705 ../adduser:711
+#, perl-format
+msgid "The user `%s' was not created."
+msgstr "ユーザ `%s' は作成されませんでした。"
+
+#: ../adduser:506
+#, fuzzy, perl-format
+#| msgid ""
+#| "No UID is available in the range %d-%d (FIRST_SYS_UID - LAST_SYS_UID).\n"
+msgid "No UID is available in the range %d-%d (FIRST_SYS_UID - LAST_SYS_UID)."
+msgstr ""
+"範囲 %d-%d (FIRST_SYS_UID - LAST_SYS_UID) の範囲には利用可能な UID がありませ"
+"ん。\n"
+
+#: ../adduser:517 ../adduser:529
+#, fuzzy
+#| msgid "Internal error"
+msgid "Internal error"
+msgstr "内部エラー"
+
+#: ../adduser:533
+#, perl-format
+msgid "Adding system user `%s' (UID %d) ..."
+msgstr "システムユーザ `%s' (UID %d) を追加しています..."
+
+#: ../adduser:537
+#, perl-format
+msgid "Adding new group `%s' (GID %d) ..."
+msgstr "新しいグループ `%s' (GID %d) を追加しています..."
+
+#: ../adduser:543
+#, perl-format
+msgid "Adding new user `%s' (UID %d) with group `%s' ..."
+msgstr "新しいユーザ `%s' (UID %d) をグループ `%s' に追加しています..."
+
+#: ../adduser:590
+msgid ""
+"USERS_GID and USERS_GROUP both given in configuration. This is an error."
+msgstr ""
+
+#: ../adduser:681
+#, perl-format
+msgid "Adding user `%s' ..."
+msgstr "ユーザ `%s' を追加しています..."
+
+#: ../adduser:704
+#, fuzzy, perl-format
+#| msgid ""
+#| "No UID/GID pair is available in the range %d-%d (FIRST_UID - LAST_UID).\n"
+msgid "No UID/GID pair is available in the range %d-%d (FIRST_UID - LAST_UID)."
+msgstr ""
+"範囲 %d-%d (FIRST_UID - LAST_UID) の範囲には利用可能な UID/GID のペアがありま"
+"せん。\n"
+
+#: ../adduser:710
+msgid ""
+"USERGROUPS=no, USER_GID=-1 and USERS_GROUP empty. A user needs a primary "
+"group!"
+msgstr ""
+
+#: ../adduser:750
+msgid "Internal error interpreting parameter combination"
+msgstr ""
+
+#: ../adduser:760
+#, perl-format
+msgid "Adding new group `%s' (%d) ..."
+msgstr "新しいグループ `%s' (%d) を追加しています..."
+
+#: ../adduser:763
+#, fuzzy, perl-format
+#| msgid "Adding new group `%s' (GID %d) ..."
+msgid "Adding new group `%s' (new group ID) ..."
+msgstr "新しいグループ `%s' (GID %d) を追加しています..."
+
+#: ../adduser:766
+#, perl-format
+msgid "new group '%s' created with GID %d"
+msgstr ""
+
+#: ../adduser:773
+#, fuzzy, perl-format
+#| msgid "Adding new user `%s' (%d) with group `%s' ..."
+msgid "Adding new user `%s' (%d) with group `%s (%d)' ..."
+msgstr "新しいユーザ `%s' (%d) をグループ `%s' として追加しています..."
+
+#. hm, error, should we break now?
+#: ../adduser:802
+msgid "Permission denied"
+msgstr "権限がありません"
+
+#: ../adduser:803
+msgid "invalid combination of options"
+msgstr "無効なオプションの組み合わせです"
+
+#: ../adduser:804
+msgid "unexpected failure, nothing done"
+msgstr "予期せぬ失敗です。何も行われませんでした"
+
+#: ../adduser:805
+msgid "unexpected failure, passwd file missing"
+msgstr "予期せぬ失敗です。パスワードファイルがありません"
+
+#: ../adduser:806
+msgid "passwd file busy, try again"
+msgstr "passwd ファイルがビジーです。再試行してください"
+
+#: ../adduser:807
+msgid "invalid argument to option"
+msgstr "オプションへの無効な引数です"
+
+#: ../adduser:813
+msgid "Try again? [y/N] "
+msgstr "もう一度試しますか? [y/N] "
+
+#: ../adduser:839
+msgid "Is the information correct? [Y/n] "
+msgstr "以上で正しいですか? [Y/n] "
+
+#: ../adduser:853
+#, fuzzy, perl-format
+#| msgid "Adding new user `%s' to extra groups ..."
+msgid "Adding new user `%s' to supplemental / extra groups `%s' ..."
+msgstr "別のグループに新しいユーザ '%s' を追加しています..."
+
+#: ../adduser:877
+#, perl-format
+msgid "Setting quota for user `%s' to values of user `%s' ..."
+msgstr "ユーザ `%s' のクォータをユーザ `%s' の値に設定しています..."
+
+#: ../adduser:915
+#, fuzzy, perl-format
+#| msgid "Not creating home directory `%s'."
+msgid "Not creating `%s'."
+msgstr "ホームディレクトリ `%s' は作成しません。"
+
+#: ../adduser:917
+#, perl-format
+msgid "Not creating home directory `%s'."
+msgstr "ホームディレクトリ `%s' は作成しません。"
+
+#: ../adduser:919
+#, fuzzy, perl-format
+#| msgid "The home directory `%s' already exists.  Not copying from `%s'."
+msgid "The home directory `%s' already exists.  Not touching this directory."
+msgstr ""
+"ホームディレクトリ `%s' はすでに存在します。`%s' からのコピーを行いません。\n"
+
+#: ../adduser:925
+#, fuzzy, perl-format
+#| msgid ""
+#| "Warning: The home directory `%s' does not belong to the user you are "
+#| "currently creating.\n"
+msgid ""
+"Warning: The home directory `%s' does not belong to the user you are "
+"currently creating."
+msgstr ""
+"警告: ホームディレクトリ `%s' は、現在作成中のユーザの所属になっていませ"
+"ん。\n"
+
+#: ../adduser:928
+#, perl-format
+msgid "Creating home directory `%s' ..."
+msgstr "ホームディレクトリ `%s' を作成しています..."
+
+#: ../adduser:931
+#, perl-format
+msgid "Couldn't create home directory `%s': %s."
+msgstr "ホームディレクトリ `%s' を作成できませんでした: %s"
+
+#: ../adduser:945
+#, perl-format
+msgid "Copying files from `%s' ..."
+msgstr "`%s' からファイルをコピーしています..."
+
+#: ../adduser:948
+#, perl-format
+msgid "fork for `find' failed: %s"
+msgstr "`find' の fork に失敗しました: %s"
+
+#: ../adduser:1065
+#, perl-format
+msgid "The user `%s' already exists, and is not a system user."
+msgstr "ユーザ `%s' はすでに存在しており、システムユーザではありません。"
+
+#: ../adduser:1068
+#, perl-format
+msgid "The user `%s' already exists."
+msgstr "ユーザ `%s' はすでに存在しています。"
+
+#: ../adduser:1073
+#, perl-format
+msgid "The UID %d is already in use."
+msgstr "ユーザ ID %d はすでに使用されています。"
+
+#: ../adduser:1085
+#, perl-format
+msgid "The GID %d is already in use."
+msgstr "グループ ID %d はすでに使用されています。"
+
+#: ../adduser:1095
+#, perl-format
+msgid "The GID %d does not exist."
+msgstr "グループ ID %d は存在しません。"
+
+#: ../adduser:1162
+#, fuzzy, perl-format
+#| msgid ""
+#| "Cannot deal with %s.\n"
+#| "It is not a dir, file, or symlink.\n"
+msgid "%s/%s is neither a dir, file, nor a symlink."
+msgstr ""
+"%s を処理できません。\n"
+"ディレクトリでもファイルでもシンボリックリンクでもありません。\n"
+
+#. this check cannot be turned off
+#: ../adduser:1196
+msgid ""
+"To avoid ambiguity with numerical UIDs, usernames which\n"
+"            consist of only digits are not allowed."
+msgstr ""
+
+#. this check cannot be turned off
+#: ../adduser:1203
+msgid ""
+"Usernames must be no more than 32 bytes in length;\n"
+"            note that if you are using Unicode characters, the character\n"
+"            limit will be less than 32."
+msgstr ""
+
+#. this check cannot be turned off
+#: ../adduser:1211
+msgid ""
+"To avoid problems, the username must not start with a\n"
+"            dash, plus sign, or tilde, and it must not contain any of the\n"
+"            following: colon, comma, slash, or any whitespace characters\n"
+"            including spaces, tabs, and newlines."
+msgstr ""
+
+#: ../adduser:1221
+#, fuzzy
+#| msgid ""
+#| "%s: To avoid problems, the username should consist only of\n"
+#| "letters, digits, underscores, periods, at signs and dashes, and not start "
+#| "with\n"
+#| "a dash (as defined by IEEE Std 1003.1-2001). For compatibility with "
+#| "Samba\n"
+#| "machine accounts $ is also supported at the end of the username\n"
+msgid ""
+"To avoid problems, the username should consist only of\n"
+"            letters, digits, underscores, periods, at signs and dashes, and\n"
+"            not start with a dash (as defined by IEEE Std 1003.1-2001). For\n"
+"            compatibility with Samba machine accounts, $ is also supported\n"
+"            at the end of the username.  (Use the `--allow-all-names' "
+"option\n"
+"            to bypass this restriction.)"
+msgstr ""
+"%s: 問題を避けるために、ユーザ名は、(IEEE 標準 1003.1-2001 で定義されているよ"
+"うに)\n"
+"英字アルファベット、数字、下線 (_)、ピリオド、@、ダッシュ (-) の中から構成"
+"し、かつ\n"
+"ダッシュで始まらないようにすべきです。Samba マシンアカウントとの互換性のため"
+"に、\n"
+"ユーザ名の最後に $ を置くこともサポートされています。\n"
+
+#: ../adduser:1231
+msgid "Allowing use of questionable username."
+msgstr "不審なユーザ名の使用を許可しています。"
+
+#: ../adduser:1233
+#, fuzzy, perl-format
+#| msgid ""
+#| "%s: Please enter a username matching the regular expression configured\n"
+#| "via the NAME_REGEX configuration variable.  Use the `--force-badname'\n"
+#| "option to relax this check or reconfigure NAME_REGEX.\n"
+msgid ""
+"Please enter a username matching the regular expression\n"
+"            configured via the %s configuration variable.  Use the\n"
+"            `--allow-bad-names' option to relax this check or reconfigure\n"
+"            %s in configuration."
+msgstr ""
+"%s: NAME_REGEX 設定値で設定された正規表現に適合するユーザ名を入力してくださ"
+"い。\n"
+"このチェックを回避するためには `--force-badname' を使うか、NAME_REGEX を再設"
+"定\n"
+"してください。\n"
+
+#: ../adduser:1254
+#, fuzzy, perl-format
+#| msgid "Selecting UID from range %d to %d ..."
+msgid "Selecting UID from range %d to %d ...\n"
+msgstr "%d から %d の範囲でユーザ ID を選択しています..."
+
+#: ../adduser:1277
+#, perl-format
+msgid "Selecting GID from range %d to %d ..."
+msgstr "%d から %d の範囲でグループ ID を選択しています..."
+
+#: ../adduser:1301
+#, fuzzy, perl-format
+#| msgid "Selecting UID from range %d to %d ..."
+msgid "Selecting UID/GID from range %d to %d ..."
+msgstr "%d から %d の範囲でユーザ ID を選択しています..."
+
+#: ../adduser:1342
+#, perl-format
+msgid "Removing directory `%s' ..."
+msgstr "ディレクトリ `%s' を削除しています..."
+
+#: ../adduser:1346 ../deluser:393
+#, perl-format
+msgid "Removing user `%s' ..."
+msgstr "ユーザ `%s' を削除しています..."
+
+#. groupdel will error out if there are users left that
+#. have $group as primary group. We are not checking this
+#. ourself since this would mean enumerating all users.
+#: ../adduser:1350 ../deluser:435
+#, perl-format
+msgid "Removing group `%s' ..."
+msgstr "グループ `%s' を削除しています..."
+
+#. Translators: the variable %s is INT, QUIT, or HUP.
+#. Please do not insert a space character between SIG and %s.
+#: ../adduser:1360
+#, perl-format
+msgid "Caught a SIG%s."
+msgstr "SIG%s を受け取りました。"
+
+#: ../adduser:1366
+#, perl-format
+msgid ""
+"adduser version %s\n"
+"\n"
+msgstr ""
+"adduser バージョン %s\n"
+"\n"
+
+#: ../adduser:1367
+msgid ""
+"Adds a user or group to the system.\n"
+"\n"
+"For detailed copyright information, please refer to\n"
+"/usr/share/doc/adduser/copyright.\n"
+"\n"
+msgstr ""
+
+#: ../adduser:1373 ../deluser:495
+msgid ""
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or (at\n"
+"your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License, /usr/share/common-licenses/GPL, for more details.\n"
+msgstr ""
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or (at\n"
+"your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful, but\n"
+"WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License, /usr/share/common-licenses/GPL, for more details.\n"
+
+#: ../adduser:1387
+msgid ""
+"adduser [--uid id] [--firstuid id] [--lastuid id]\n"
+"        [--gid id] [--firstgid id] [--lastgid id] [--ingroup group]\n"
+"        [--add-extra-groups] [--shell shell]\n"
+"        [--comment comment] [--home dir] [--no-create-home]\n"
+"        [--allow-all-names] [--allow-bad-names]\n"
+"        [--disabled-password] [--disabled-login]\n"
+"        [--conf file] [--quiet] [--verbose] [--debug]\n"
+"        user\n"
+"    Add a normal user\n"
+"\n"
+"adduser --system\n"
+"        [--uid id] [--group] [--ingroup group] [--gid id]\n"
+"        [--shell shell] [--comment comment] [--home dir] [--no-create-home]\n"
+"        [--conf file] [--quiet] [--verbose] [--debug]\n"
+"        user\n"
+"   Add a system user\n"
+"\n"
+"adduser --group\n"
+"        [--gid ID] [--firstgid id] [--lastgid id]\n"
+"        [--conf file] [--quiet] [--verbose] [--debug]\n"
+"        group\n"
+"addgroup\n"
+"        [--gid ID] [--firstgid id] [--lastgid id]\n"
+"        [--conf file] [--quiet] [--verbose] [--debug]\n"
+"        group\n"
+"   Add a user group\n"
+"\n"
+"addgroup --system\n"
+"        [--gid id]\n"
+"        [--conf file] [--quiet] [--verbose] [--debug]\n"
+"        group\n"
+"   Add a system group\n"
+"\n"
+"adduser USER GROUP\n"
+"   Add an existing user to an existing group\n"
+msgstr ""
+
+#: ../deluser:125
+msgid "Only root may remove a user or group from the system."
+msgstr "root だけがシステムからユーザまたはグループを削除できます。"
+
+#: ../deluser:158
+msgid "No options allowed after names."
+msgstr "名前のあとにオプションを付けることはできません。"
+
+#: ../deluser:167
+msgid "Enter a group name to remove: "
+msgstr "削除するグループ名を入力してください: "
+
+#: ../deluser:169
+msgid "Enter a user name to remove: "
+msgstr "削除するユーザ名を入力してください: "
+
+#: ../deluser:212
+#, fuzzy
+#| msgid ""
+#| "In order to use the --remove-home, --remove-all-files, and --backup "
+#| "features,\n"
+#| "you need to install the `perl' package. To accomplish that, run\n"
+#| "apt-get install perl.\n"
+msgid ""
+"In order to use the --remove-home, --remove-all-files, and --backup "
+"features, you need to install the `perl' package. To accomplish that, run "
+"apt-get install perl."
+msgstr ""
+"--remove-home, --remove-all-files, --backup の機能を使うには、\n"
+"`perl' パッケージをインストールする必要があります。これを行うには、\n"
+"apt-get install perl を実行してください。\n"
+
+#: ../deluser:256
+#, perl-format
+msgid "The user `%s' is not a system user. Exiting."
+msgstr "ユーザ `%s' はシステムユーザではありません。終了します。"
+
+#: ../deluser:260
+#, perl-format
+msgid "The user `%s' does not exist, but --system was given. Exiting."
+msgstr ""
+"ユーザ `%s' は存在しませんが、--system が与えられました。終了します。"
+
+#: ../deluser:272
+msgid ""
+"WARNING: You are just about to delete the root account (uid 0). Usually this "
+"is never required as it may render the whole system unusable. If you really "
+"want this, call deluser with parameter --no-preserve-root. Stopping now "
+"without having performed any action"
+msgstr ""
+
+#: ../deluser:283
+msgid "Looking for files to backup/remove ..."
+msgstr "バックアップ/削除するファイルを探しています..."
+
+#: ../deluser:288
+#, perl-format
+msgid "failed to open /proc/mounts: %s"
+msgstr ""
+
+#: ../deluser:301
+#, perl-format
+msgid "failed to close /proc/mounts: %s"
+msgstr ""
+
+#: ../deluser:326
+#, perl-format
+msgid "Not backing up/removing `%s', it is a mount point."
+msgstr "`%s' はバックアップ/削除しません。これはマウントポイントです。"
+
+#: ../deluser:333
+#, perl-format
+msgid "Not backing up/removing `%s', it matches %s."
+msgstr "`%s' はバックアップ/削除しません。これは %s にマッチします。"
+
+#: ../deluser:347
+#, perl-format
+msgid "Cannot handle special file %s"
+msgstr "特殊ファイル %s を操作できません"
+
+#: ../deluser:355
+#, perl-format
+msgid "Backing up files to be removed to %s ..."
+msgstr "削除されるファイルを %s にバックアップしています..."
+
+#: ../deluser:374
+msgid "Removing files ..."
+msgstr "ファイルを削除しています..."
+
+#: ../deluser:383
+msgid "Removing crontab ..."
+msgstr "crontab を削除しています..."
+
+#: ../deluser:389
+#, perl-format
+msgid "`%s' not executed. Skipping crontab removal. Package `cron' required."
+msgstr ""
+
+#: ../deluser:418
+#, perl-format
+msgid "getgrnam `%s' failed. This shouldn't happen."
+msgstr "getgrnam `%s' に失敗しました。これは本来起こらないはずです。"
+
+#: ../deluser:424
+#, perl-format
+msgid "The group `%s' is not a system group. Exiting."
+msgstr "グループ `%s' はシステムグループではありません。終了します。"
+
+#: ../deluser:428
+#, perl-format
+msgid "The group `%s' is not empty!"
+msgstr "グループ `%s' は空ではありません!"
+
+#: ../deluser:447
+#, fuzzy, perl-format
+#| msgid "The user `%s' does not exist."
+msgid "The user `%s' does not exist.\n"
+msgstr "ユーザ `%s' は存在しません。"
+
+#: ../deluser:451
+#, fuzzy, perl-format
+#| msgid "The group `%s' does not exist."
+msgid "The group `%s' does not exist.\n"
+msgstr "グループ `%s' が存在しません。"
+
+#: ../deluser:455
+msgid "You may not remove the user from their primary group."
+msgstr ""
+"ユーザを、そのユーザが属する第一のグループから削除することはできません。"
+
+#: ../deluser:473
+#, perl-format
+msgid "The user `%s' is not a member of group `%s'."
+msgstr "ユーザ `%s' はグループ `%s' のメンバーではありません。"
+
+#: ../deluser:477
+#, perl-format
+msgid "Removing user `%s' from group `%s' ..."
+msgstr "ユーザ `%s' をグループ `%s' から削除しています..."
+
+#: ../deluser:488
+#, perl-format
+msgid ""
+"deluser version %s\n"
+"\n"
+msgstr ""
+"deluser バージョン %s\n"
+"\n"
+
+#: ../deluser:489
+msgid ""
+"Removes users and groups from the system.\n"
+"\n"
+"For detailed copyright information, please refer to\n"
+"/usr/share/doc/adduser/copyright.\n"
+"\n"
+msgstr ""
+
+#: ../deluser:509
+msgid ""
+"deluser [--system] [--remove-home] [--remove-all-files] [--backup]\n"
+"        [--backup-to dir] [--backup-suffix str] [--conf file]\n"
+"        [--quiet] [--verbose] [--debug] user\n"
+"\n"
+"  remove a normal user from the system\n"
+"\n"
+"deluser --group [--system] [--only-if-empty] [--conf file] [--quiet]\n"
+"        [--verbose] [--debug] group\n"
+"delgroup [--system] [--only-if-empty] [--conf file] [--quiet]\n"
+"         [--verbose] [--debug] group\n"
+"  remove a group from the system\n"
+"\n"
+"deluser [--conf file] [--quiet] [--verbose] [--debug] user group\n"
+"  remove the user from a group\n"
+msgstr ""
+
+#. compressor recognized, not available
+#: ../deluser:547 ../deluser:557
+#, perl-format
+msgid "Backup suffix %s unavailable, using gzip."
+msgstr ""
+
+#: ../AdduserCommon.pm:77
+#, perl-format
+msgid "`%s' does not exist. Using defaults."
+msgstr "`%s' が存在しません。デフォルトを使用します。"
+
+#: ../AdduserCommon.pm:83
+#, perl-format
+msgid "cannot open configuration file %s: `%s'\n"
+msgstr ""
+
+#: ../AdduserCommon.pm:91 ../AdduserCommon.pm:155 ../AdduserCommon.pm:168
+#, perl-format
+msgid "Couldn't parse `%s', line %d."
+msgstr "`%s' を解析できません (%d 行)。"
+
+#: ../AdduserCommon.pm:96
+#, perl-format
+msgid "Unknown variable `%s' at `%s', line %d."
+msgstr "不明な変数 `%s' が `%s' にあります (%d 行)。"
+
+#: ../AdduserCommon.pm:122
+#, fuzzy, perl-format
+#| msgid "Not creating home directory `%s'."
+msgid "Cannot read directory `%s'"
+msgstr "ホームディレクトリ `%s' は作成しません。"
+
+#: ../AdduserCommon.pm:137
+#, fuzzy, perl-format
+#| msgid "The user `%s' does not exist."
+msgid "`%s' does not exist."
+msgstr "ユーザ `%s' は存在しません。"
+
+#: ../AdduserCommon.pm:142
+#, fuzzy, perl-format
+#| msgid "Cannot handle special file %s"
+msgid "Cannot open pool file %s: `%s'"
+msgstr "特殊ファイル %s を操作できません"
+
+#: ../AdduserCommon.pm:175
+#, perl-format
+msgid "Illegal pool type `%s' reading `%s'."
+msgstr ""
+
+#: ../AdduserCommon.pm:179
+#, fuzzy, perl-format
+#| msgid "Unknown variable `%s' at `%s', line %d."
+msgid "Duplicate name `%s' at `%s', line %d."
+msgstr "不明な変数 `%s' が `%s' にあります (%d 行)。"
+
+#: ../AdduserCommon.pm:183
+#, fuzzy, perl-format
+#| msgid "Unknown variable `%s' at `%s', line %d."
+msgid "Duplicate ID `%s' at `%s', line %d."
+msgstr "不明な変数 `%s' が `%s' にあります (%d 行)。"
+
+#: ../AdduserCommon.pm:213
+#, perl-format
+msgid "`%s' returned error code %d. Exiting."
+msgstr "`%s' はエラーコード %d を返しました。終了します。"
+
+#: ../AdduserCommon.pm:216
+#, perl-format
+msgid "`%s' exited from signal %d. Exiting."
+msgstr "`%s' はシグナル %d で終了しました。終了します。"
+
+#: ../AdduserCommon.pm:227
+#, perl-format
+msgid "`%s' failed to execute. %s. Continuing."
+msgstr ""
+
+#: ../AdduserCommon.pm:229
+#, fuzzy, perl-format
+#| msgid "`%s' exited from signal %d. Exiting."
+msgid "`%s' killed by signal %d. Continuing."
+msgstr "`%s' はシグナル %d で終了しました。終了します。"
+
+#: ../AdduserCommon.pm:231
+#, perl-format
+msgid "`%s' failed with status %d. Continuing."
+msgstr ""
+
+#: ../AdduserCommon.pm:270
+#, perl-format
+msgid "Could not find program named `%s' in $PATH."
+msgstr "$PATH に `%s' という名前のプログラムが見つかりませんでした。"
+
+#: ../AdduserCommon.pm:343
+#, perl-format
+msgid "could not open lock file %s!"
+msgstr ""
+
+#: ../AdduserCommon.pm:349
+msgid "Could not obtain exclusive lock, please try again shortly!"
+msgstr ""
+
+#: ../AdduserCommon.pm:352
+msgid "Waiting for lock to become available..."
+msgstr ""
+
+#: ../AdduserCommon.pm:359
+#, perl-format
+msgid "could not seek - %s!"
+msgstr ""
+
+#: ../AdduserCommon.pm:368
+msgid "could not find lock file!"
+msgstr ""
+
+#: ../AdduserCommon.pm:373
+#, perl-format
+msgid "could not unlock file %s: %s"
+msgstr ""
+
+#: ../AdduserCommon.pm:378
+#, perl-format
+msgid "could not close lock file %s: %s"
+msgstr ""
+
+#~ msgid "Done."
+#~ msgstr "完了。"
+
+#, perl-format
+#~ msgid "Stopped: %s"
+#~ msgstr "停止しました: %s"
+
+#~ msgid "WARNING: You are just about to delete the root account (uid 0)"
+#~ msgstr ""
+#~ "警告: あなたは root アカウント (ユーザ ID 0) を削除しようとしています\n"
+
+#~ msgid ""
+#~ "Usually this is never required as it may render the whole system "
+#~ "unusable\n"
+#~ msgstr ""
+#~ "これは全システムを使用不可能にしてしまう恐れがあり、普通は必要性はまったく"
+#~ "ありません\n"
+
+#, fuzzy
+#~| msgid "If you really want this, call deluser with parameter --force"
+#~ msgid ""
+#~ "If you really want this, call deluser with parameter --no-preserve-root\n"
+#~ msgstr ""
+#~ "あなたが本当にこれを行いたいのであれば、--force パラメータ付きで deluser "
+#~ "を呼び出してください\n"
+
+#~ msgid "Stopping now without having performed any action"
+#~ msgstr "どのアクションも行わずにすぐに中止しています"
+
+#, perl-format
+#~ msgid "%s: %s"
+#~ msgstr "%s: %s"
+
+#, perl-format
+#~ msgid "No UID is available in the range %d-%d (FIRST_UID - LAST_UID)."
+#~ msgstr ""
+#~ "範囲 %d-%d (FIRST_UID - LAST_UID) の範囲には利用可能な UID がありませ"
+#~ "ん。\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "Adds a user or group to the system.\n"
+#~| "  \n"
+#~| "Copyright (C) 1997, 1998, 1999 Guy Maor <maor@debian.org>\n"
+#~| "Copyright (C) 1995 Ian Murdock <imurdock@gnu.ai.mit.edu>,\n"
+#~| "                   Ted Hajek <tedhajek@boombox.micro.umn.edu>\n"
+#~| "\n"
+#~ msgid ""
+#~ "Adds a user or group to the system.\n"
+#~ "\n"
+#~ "Copyright (C) 1997, 1998, 1999 Guy Maor <maor@debian.org>\n"
+#~ "Copyright (C) 1995 Ian Murdock <imurdock@gnu.ai.mit.edu>,\n"
+#~ "                   Ted Hajek <tedhajek@boombox.micro.umn.edu>\n"
+#~ "\n"
+#~ msgstr ""
+#~ "ユーザまたはグループをシステムに追加する。\n"
+#~ "  \n"
+#~ "Copyright (C) 1997, 1998, 1999 Guy Maor <maor@debian.org>\n"
+#~ "Copyright (C) 1995 Ian Murdock <imurdock@gnu.ai.mit.edu>,\n"
+#~ "                   Ted Hajek <tedhajek@boombox.micro.umn.edu>\n"
+#~ "\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "adduser [--home DIR] [--shell SHELL] [--no-create-home] [--uid ID]\n"
+#~| "[--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup GROUP | --gid "
+#~| "ID]\n"
+#~| "[--disabled-password] [--disabled-login] [--add_extra_groups] USER\n"
+#~| "   Add a normal user\n"
+#~| "\n"
+#~| "adduser --system [--home DIR] [--shell SHELL] [--no-create-home] [--uid "
+#~| "ID]\n"
+#~| "[--gecos GECOS] [--group | --ingroup GROUP | --gid ID] [--disabled-"
+#~| "password]\n"
+#~| "[--disabled-login] [--add_extra_groups] USER\n"
+#~| "   Add a system user\n"
+#~| "\n"
+#~| "adduser --group [--gid ID] GROUP\n"
+#~| "addgroup [--gid ID] GROUP\n"
+#~| "   Add a user group\n"
+#~| "\n"
+#~| "addgroup --system [--gid ID] GROUP\n"
+#~| "   Add a system group\n"
+#~| "\n"
+#~| "adduser USER GROUP\n"
+#~| "   Add an existing user to an existing group\n"
+#~| "\n"
+#~| "general options:\n"
+#~| "  --quiet | -q      don't give process information to stdout\n"
+#~| "  --force-badname   allow usernames which do not match the\n"
+#~| "                    NAME_REGEX configuration variable\n"
+#~| "  --help | -h       usage message\n"
+#~| "  --version | -v    version number and copyright\n"
+#~| "  --conf | -c FILE  use FILE as configuration file\n"
+#~| "\n"
+#~ msgid ""
+#~ "adduser [--home DIR] [--shell SHELL] [--no-create-home] [--uid ID]\n"
+#~ "[--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup GROUP | --gid "
+#~ "ID]\n"
+#~ "[--disabled-password] [--disabled-login] [--add_extra_groups] USER\n"
+#~ "   Add a normal user\n"
+#~ "\n"
+#~ "adduser --system [--home DIR] [--shell SHELL] [--no-create-home] [--uid "
+#~ "ID]\n"
+#~ "[--gecos GECOS] [--group | --ingroup GROUP | --gid ID] [--disabled-"
+#~ "password]\n"
+#~ "[--disabled-login] [--add_extra_groups] USER\n"
+#~ "   Add a system user\n"
+#~ "\n"
+#~ "adduser --group GROUP\n"
+#~ "addgroup [--gid=GID] GROUP\n"
+#~ "   Add a user group\n"
+#~ "\n"
+#~ "addgroup --system [--gid=GID] GROUP\n"
+#~ "   Add a system group\n"
+#~ "\n"
+#~ "adduser USER GROUP\n"
+#~ "   Add an existing user to an existing group\n"
+#~ "\n"
+#~ "general options:\n"
+#~ "  --force-badname       allow usernames which do not match the\n"
+#~ "                        NAME_REGEX configuration variable\n"
+#~ "  -q, --quiet           don't give process information to stdout\n"
+#~ "  -d, --debug           be more verbose during execution\n"
+#~ "  -h, --help            usage message\n"
+#~ "  -v, --version         version number and copyright\n"
+#~ "  -c FILE, --conf=FILE  use FILE as configuration file\n"
+#~ "\n"
+#~ msgstr ""
+#~ "adduser [--home DIR] [--shell SHELL] [--no-create-home] [--uid ID]\n"
+#~ "[--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup GROUP | --gid "
+#~ "ID]\n"
+#~ "[--disabled-password] [--disabled-login] [--add_extra_groups] <ユーザ名>\n"
+#~ "   一般ユーザの追加\n"
+#~ "\n"
+#~ "adduser --system [--home DIR] [--shell SHELL] [--no-create-home] [--uid "
+#~ "ID]\n"
+#~ "[--gecos GECOS] [--group | --ingroup GROUP | --gid ID] [--disabled-"
+#~ "password]\n"
+#~ "[--disabled-login] [--add_extra_groups] <ユーザ名>\n"
+#~ "   システムユーザの追加\n"
+#~ "\n"
+#~ "adduser --group [--gid ID] <グループ名>\n"
+#~ "addgroup [--gid ID] <グループ名>\n"
+#~ "   ユーザグループの追加\n"
+#~ "\n"
+#~ "addgroup --system [--gid ID] <グループ名>\n"
+#~ "   システムグループの追加\n"
+#~ "\n"
+#~ "adduser <ユーザ名> <グループ名>\n"
+#~ "   既存のユーザを既存のグループに追加\n"
+#~ "\n"
+#~ "一般オプション:\n"
+#~ "  --quiet | -q      標準出力に処理情報を表示しない\n"
+#~ "  --force-badname   NAME_REGEX 設定値に適合しないユーザ名を許可する\n"
+#~ "  --help | -h       使用方法\n"
+#~ "  --version | -v    バージョン番号と著作権\n"
+#~ "  --conf | -c <ファイル名>  <ファイル名> を設定ファイルとして使う\n"
+#~ "\n"
+
+#, perl-format
+#~ msgid "fork for `mount' to parse mount points failed: %s"
+#~ msgstr ""
+#~ "マウントポイントを解析するための `mount' の fork に失敗しました: %s\n"
+
+#, perl-format
+#~ msgid "pipe of command `mount' could not be closed: %s"
+#~ msgstr "コマンド `mount' のパイプをクローズできませんでした: %s"
+
+#, perl-format
+#~ msgid "`%s' still has `%s' as their primary group!"
+#~ msgstr "`%s' はまだ `%s' を第一のグループとしています!"
+
+#~ msgid "Removes users and groups from the system."
+#~ msgstr "ユーザとグループをシステムから削除します。"
+
+#~ msgid ""
+#~ "Copyright (C) 2000 Roland Bauerschmidt <roland@copyleft.de>\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Copyright (C) 2000 Roland Bauerschmidt <roland@copyleft.de>\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "deluser is based on adduser by Guy Maor <maor@debian.org>, Ian Murdock\n"
+#~ "<imurdock@gnu.ai.mit.edu> and Ted Hajek <tedhajek@boombox.micro.umn.edu>\n"
+#~ "\n"
+#~ msgstr ""
+#~ "deluser は、Guy Maor <maor@debian.org>、Ian Murdock <imurdock@gnu.ai.mit."
+#~ "edu>、\n"
+#~ "Ted Hajek <tedhajek@boombox.micro.umn.edu> による adduser を元にしていま"
+#~ "す。\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "deluser USER\n"
+#~| "  remove a normal user from the system\n"
+#~| "  example: deluser mike\n"
+#~| "\n"
+#~| "  --remove-home             remove the users home directory and mail "
+#~| "spool\n"
+#~| "  --remove-all-files        remove all files owned by user\n"
+#~| "  --backup                  backup files before removing.\n"
+#~| "  --backup-to <DIR>         target directory for the backups.\n"
+#~| "                            Default is the current directory.\n"
+#~| "  --system                  only remove if system user\n"
+#~| "\n"
+#~| "delgroup GROUP\n"
+#~| "deluser --group GROUP\n"
+#~| "  remove a group from the system\n"
+#~| "  example: deluser --group students\n"
+#~| "\n"
+#~| "  --system                  only remove if system group\n"
+#~| "  --only-if-empty           only remove if no members left\n"
+#~| "\n"
+#~| "deluser USER GROUP\n"
+#~| "  remove the user from a group\n"
+#~| "  example: deluser mike students\n"
+#~| "\n"
+#~| "general options:\n"
+#~| "  --quiet | -q      don't give process information to stdout\n"
+#~| "  --help | -h       usage message\n"
+#~| "  --version | -v    version number and copyright\n"
+#~| "  --conf | -c FILE  use FILE as configuration file\n"
+#~| "\n"
+#~ msgid ""
+#~ "deluser USER\n"
+#~ "  remove a normal user from the system\n"
+#~ "  example: deluser mike\n"
+#~ "\n"
+#~ "  --remove-home             remove the users home directory and mail "
+#~ "spool\n"
+#~ "  --remove-all-files        remove all files owned by user\n"
+#~ "  --backup                  backup files before removing.\n"
+#~ "  --backup-to <DIR>         target directory for the backups.\n"
+#~ "                            Default is the current directory.\n"
+#~ "  --system                  only remove if system user\n"
+#~ "\n"
+#~ "delgroup GROUP\n"
+#~ "deluser --group GROUP\n"
+#~ "  remove a group from the system\n"
+#~ "  example: deluser --group students\n"
+#~ "\n"
+#~ "  --system                  only remove if system group\n"
+#~ "  --only-if-empty           only remove if no members left\n"
+#~ "\n"
+#~ "deluser USER GROUP\n"
+#~ "  remove the user from a group\n"
+#~ "  example: deluser mike students\n"
+#~ "\n"
+#~ "general options:\n"
+#~ "  -q, --quiet           don't give process information to stdout\n"
+#~ "  -d, --debug           be more verbose\n"
+#~ "  -h, --help            usage message\n"
+#~ "  -v, --version         version number and copyright\n"
+#~ "  -c FILE, --conf=FILE  use FILE as configuration file\n"
+#~ "\n"
+#~ msgstr ""
+#~ "deluser <ユーザ名>\n"
+#~ "  システムからの一般ユーザの削除\n"
+#~ "  例: deluser mike\n"
+#~ "\n"
+#~ "  --remove-home             ユーザのホームディレクトリおよびメールスプール"
+#~ "を削除\n"
+#~ "  --remove-all-files        ユーザの所有するすべてのファイルを削除\n"
+#~ "  --backup                  削除前にファイルをバックアップ\n"
+#~ "  --backup-to <ディレクトリ名> バックアップを置くディレクトリ。\n"
+#~ "                              デフォルトはカレントディレクトリ\n"
+#~ "  --system                  システムユーザのときのみ削除\n"
+#~ "\n"
+#~ "delgroup <グループ名>\n"
+#~ "deluser --group <グループ名>\n"
+#~ "  システムからのグループの削除\n"
+#~ "  例: deluser --group students\n"
+#~ "\n"
+#~ "  --system                  システムグループのときのみ削除\n"
+#~ "  --only-if-empty           メンバーが空のときのみ削除\n"
+#~ "\n"
+#~ "deluser <ユーザ名> <グループ名>\n"
+#~ "  グループからのユーザの削除\n"
+#~ "  例: deluser mike students\n"
+#~ "\n"
+#~ "一般オプション:\n"
+#~ "  --quiet | -q      標準出力に処理情報を表示しない\n"
+#~ "  --help | -h       使用方法\n"
+#~ "  --version | -v    バージョン番号と著作権\n"
+#~ "  --conf | -c <ファイル名>  <ファイル名> を設定ファイルとして使う\n"
+#~ "\n"
+
+#, perl-format
+#~ msgid "The user `%s' already exists. Exiting."
+#~ msgstr "ユーザ `%s' はすでに存在しています。終了します。"

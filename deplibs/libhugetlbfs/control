@@ -1,0 +1,64 @@
+Source: libhugetlbfs
+Section: libs
+Priority: optional
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Punit Agrawal <punit@debian.org>
+Build-Depends: debhelper (>= 12),
+ python3-minimal, libpython3-stdlib
+Standards-Version: 4.5.0
+Homepage: https://github.com/libhugetlbfs/libhugetlbfs
+Vcs-Git: https://github.com/punitagrawal/libhugetlbfs.git
+Vcs-Browser: https://github.com/punitagrawal/libhugetlbfs.git
+
+Package: libhugetlbfs-dev
+Section: libdevel
+Architecture: amd64 arm64 armhf armel i386 ia64 ppc64el s390x powerpc ppc64 riscv64 sparc64
+Multi-Arch: same
+Depends: ${misc:Depends},
+ libhugetlbfs0 (= ${binary:Version})
+Description: Development files to build programs using libhugetlbfs
+ libhugetlbfs is a library which provides easy access to huge pages of
+ memory. It is a wrapper for the hugetlbfs file system. Applications
+ can use huge pages to fulfill malloc() requests without being
+ recompiled by using LD_PRELOAD. Alternatively, applications can be
+ linked against libhugetlbfs without source modifications to load text
+ or BSS or BSS, data, and text segments into large pages. The library
+ also comes with several userspace tools to help with huge page
+ usability, environment setup, and control.
+ .
+ This package ships the library development files.
+
+Package: libhugetlbfs0
+Architecture: amd64 arm64 armhf armel i386 ia64 ppc64el s390x powerpc ppc64 riscv64 sparc64
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Preload library to back program memory with hugepages
+ libhugetlbfs is a library which provides easy access to huge pages of
+ memory. It is a wrapper for the hugetlbfs file system. Applications
+ can use huge pages to fulfill malloc() requests without being
+ recompiled by using LD_PRELOAD. Alternatively, applications can be
+ linked against libhugetlbfs without source modifications to load text
+ or BSS or BSS, data, and text segments into large pages. The library
+ also comes with several userspace tools to help with huge page
+ usability, environment setup, and control.
+
+Package: libhugetlbfs-bin
+Section: utils
+Architecture: amd64 arm64 armhf armel i386 ia64 ppc64el s390x powerpc ppc64 riscv64 sparc64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Breaks: libhugetlbfs0 (<< 2.21-2)
+Replaces: libhugetlbfs0 (<< 2.21-2)
+Suggests: libhugetlbfs
+Description: Tools to ease use of hugetlbfs
+ libhugetlbfs is a library which provides easy access to huge pages of
+ memory. It is a wrapper for the hugetlbfs file system. Applications
+ can use huge pages to fulfill malloc() requests without being
+ recompiled by using LD_PRELOAD.
+ .
+ The package provies the following userspace tools to help with huge page
+ usability, environment setup, and control:
+ .
+ hugeadm: Configure the system huge page pools.
+ hugectl: Control policy for backing text, data and malloc() with hugepages.
+ hugeedit: Set default policy for backing text and data with hugepages.
+ pagesize: Print supported system page sizes.

@@ -1,0 +1,4 @@
+To use aa-notify, add your user to the "adm" group so it is allowed to
+read the logs.
+
+ -- intrigeri <intrigeri@debian.org>, Thu,  7 Dec 2017 09:37:37 +0100

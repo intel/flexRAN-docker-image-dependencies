@@ -1,0 +1,98 @@
+libhugetlbfs (2.23-5build1) noble; urgency=high
+
+  * No change rebuild against frame pointers and time_t.
+
+ -- Julian Andres Klode <juliank@ubuntu.com>  Mon, 22 Apr 2024 11:45:17 +0200
+
+libhugetlbfs (2.23-5) unstable; urgency=medium
+
+  * Disable malloc if __morecore hook not available (Closes: #1017324)
+
+ -- Punit Agrawal <punit@debian.org>  Sun, 11 Sep 2022 23:39:38 +0100
+
+libhugetlbfs (2.23-4) unstable; urgency=medium
+
+  [ Simon Josefsson ]
+  * Mention names of CLI tools in description (Closes: #977342)
+
+ -- Punit Agrawal <punit@debian.org>  Mon, 14 Dec 2020 19:48:59 +0900
+
+libhugetlbfs (2.23-3) unstable; urgency=medium
+
+  * Update patches for new upstream release 2.23
+
+ -- Punit Agrawal <punit@debian.org>  Sun, 08 Nov 2020 09:03:51 +0900
+
+libhugetlbfs (2.23-2) unstable; urgency=medium
+
+  * Enable package for riscv64
+
+ -- Punit Agrawal <punit@debian.org>  Sat, 07 Nov 2020 13:24:08 +0900
+
+libhugetlbfs (2.23-1) unstable; urgency=medium
+
+  * New upstream version 2.23
+  * Update standards version to 4.5.0
+
+ -- Punit Agrawal <punit@debian.org>  Sun, 01 Nov 2020 16:46:13 +0900
+
+libhugetlbfs (2.22-1) unstable; urgency=medium
+
+  * New upstream version 2.22
+  * Update to python3 dependency (Closes: #936874)
+  * Update debhelper compat version to 12
+
+ -- Punit Agrawal <punit@debian.org>  Mon, 16 Sep 2019 06:57:13 +0900
+
+libhugetlbfs (2.21-4) unstable; urgency=medium
+
+  * Correct version of Breaks+Replaces tags
+
+ -- Punit Agrawal <punit@debian.org>  Sun, 08 Sep 2019 08:52:28 +0900
+
+libhugetlbfs (2.21-3) unstable; urgency=medium
+
+  * Add Breaks+Replaces tag for libhugetlbfs-bin (Closes: #938953)
+
+ -- Punit Agrawal <punit@debian.org>  Sun, 08 Sep 2019 07:36:09 +0900
+
+libhugetlbfs (2.21-2) unstable; urgency=medium
+
+  * Move ld.hugetlbfs to libhugetlbfs-bin
+  * Update Standards-Version to 4.4.0
+
+ -- Punit Agrawal <punit@debian.org>  Sat, 24 Aug 2019 09:44:09 +0900
+
+libhugetlbfs (2.21-1) unstable; urgency=medium
+
+  * New upstream version 2.21
+  * Install executable script to /usr/bin
+
+ -- Punit Agrawal <punit@debian.org>  Sun, 24 Mar 2019 08:24:30 +0900
+
+libhugetlbfs (2.20-4) unstable; urgency=medium
+
+  * Restrict Architecture on all binary packages
+
+ -- Punit Agrawal <punit@debian.org>  Sat, 28 Oct 2017 07:03:56 +0100
+
+libhugetlbfs (2.20-3) unstable; urgency=medium
+
+  * Restrict build architectures (Closes: #879939)
+
+ -- Punit Agrawal <punit@debian.org>  Fri, 27 Oct 2017 22:11:38 +0100
+
+libhugetlbfs (2.20-2) unstable; urgency=medium
+
+  * Drop dependency on dh-exec
+  * Mark libhugetlbfs-dev to be Architecture: same
+  * Update Standards-Version to 4.1.1
+  * Provide links to package repository
+
+ -- Punit Agrawal <punit@debian.org>  Thu, 26 Oct 2017 22:12:46 +0100
+
+libhugetlbfs (2.20-1) unstable; urgency=medium
+
+  * Initial release (Closes: #533708)
+
+ -- Punit Agrawal <punit@debian.org>  Thu, 21 Sep 2017 21:24:46 +0000

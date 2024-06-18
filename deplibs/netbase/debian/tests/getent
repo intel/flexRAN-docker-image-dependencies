@@ -1,0 +1,24 @@
+#!/bin/bash -e
+set -o pipefail
+
+getent rpc mountd || { echo "getent rpc failed!" >&2; exit 1; }
+
+if ! getent rpc mountd | egrep -q '^mountd[ \t]+100005[ \t]'; then
+  echo "getent rpc returned something wrong!" >&2
+  exit 1
+fi
+
+getent services https || { echo "getent services failed!" >&2; exit 1; }
+
+if ! getent services https | egrep -q '^https[ \t]+443/tcp$'; then
+  echo "getent services returned something wrong!" >&2
+  exit 1
+fi
+
+getent protocols vrrp || { echo "getent protocols failed!" >&2; exit 1; }
+
+if ! getent protocols vrrp | egrep -q '^vrrp[ \t]+112[ \t]VRRP$'; then
+  echo "getent protocols returned something wrong!" >&2
+  exit 1
+fi
+
