@@ -1,0 +1,52 @@
+From e0f21ce3a7d450150144fd78adc02f70a35c2695 Mon Sep 17 00:00:00 2001
+From: John Johansen <john.johansen@canonical.com>
+Date: Thu, 29 Feb 2024 17:21:37 -0800
+Subject: [PATCH] parser: support uin128_t key as a pair of uint64_t numbers
+
+__uint128 is not supported by gcc on 32 bit architectures so rework
+the 128 bit map key to be a pair of 64bit numbers.
+
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+---
+ parser/libapparmor_re/hfa.cc |    9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+--- apparmor-4.0.0~beta1.orig/parser/libapparmor_re/hfa.cc
++++ apparmor-4.0.0~beta1/parser/libapparmor_re/hfa.cc
+@@ -32,7 +32,6 @@
+ #include <fstream>
+ #include <string.h>
+ #include <stdint.h>
+-
+ #include "expr-tree.h"
+ #include "hfa.h"
+ #include "policy_compat.h"
+@@ -648,7 +647,7 @@
+ }
+ 
+ 
+-typedef unsigned __int128 uint128_t;
++typedef pair<uint64_t,uint64_t> uint128_t;
+ 
+ /* minimize the number of dfa states */
+ void DFA::minimize(optflags const &opts)
+@@ -670,7 +669,9 @@
+ 	int final_accept = 0;
+ 	for (Partition::iterator i = states.begin(); i != states.end(); i++) {
+ 		size_t hash = 0;
+-		uint128_t permtype = ((uint128_t) (PACK_AUDIT_CTL((*i)->perms.audit, (*i)->perms.quiet & (*i)->perms.deny)) << 32) | (uint128_t) (*i)->perms.allow | ((uint128_t) (*i)->perms.prompt << 64);
++		uint128_t permtype;
++		permtype.first = ((uint64_t) (PACK_AUDIT_CTL((*i)->perms.audit, (*i)->perms.quiet & (*i)->perms.deny)) << 32);
++		permtype.second = (uint64_t) (*i)->perms.allow | ((uint64_t) (*i)->perms.prompt << 32);
+ 		pair<uint128_t, size_t> group = make_pair(permtype, hash);
+ 		map<pair<uint128_t, size_t>, Partition *>::iterator p = perm_map.find(group);
+ 		if (p == perm_map.end()) {
+@@ -679,7 +680,7 @@
+ 			perm_map.insert(make_pair(group, part));
+ 			partitions.push_back(part);
+ 			(*i)->partition = part;
+-			if (permtype)
++			if (permtype.first || permtype.second)
+ 				accept_count++;
+ 		} else {
+ 			(*i)->partition = p->second;

@@ -1,0 +1,51 @@
+From f9527d2113288422096a1448942f411d1306c449 Mon Sep 17 00:00:00 2001
+From: Georgia Garcia <georgia.garcia@canonical.com>
+Date: Mon, 18 Mar 2024 10:18:03 -0300
+Subject: [PATCH 2/2] parser: fix issues appointed by coverity
+
+Fix issues introduced in coverity's snapshots 75887, 70858 and 75429.
+- CID 353483: Uninitialized pointer field (UNINIT_CTOR)
+- CID 349572: Unsigned compared against 0 (NO_EFFECT)
+
+Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
+---
+ parser/all_rule.h |    2 --
+ parser/network.cc |    4 ++--
+ parser/network.h  |    2 +-
+ 3 files changed, 3 insertions(+), 5 deletions(-)
+
+--- apparmor-4.0.0-beta3.orig/parser/all_rule.h
++++ apparmor-4.0.0-beta3/parser/all_rule.h
+@@ -29,8 +29,6 @@
+ class all_rule: public prefix_rule_t {
+ 	void move_conditionals(struct cond_entry *conds);
+ public:
+-	char *label;
+-
+ 	all_rule(void): prefix_rule_t(RULE_TYPE_ALL) { }
+ 
+ 	virtual bool valid_prefix(const prefixes &p, const char *&error) {
+--- apparmor-4.0.0-beta3.orig/parser/network.cc
++++ apparmor-4.0.0-beta3/parser/network.cc
+@@ -344,8 +344,8 @@
+ 	char *eptr;
+ 	unsigned long port_tmp = strtoul(port_entry, &eptr, 10);
+ 
+-	if (port_tmp >= 0 && port_entry != eptr &&
+-	    *eptr == '\0' && port_tmp <= UINT16_MAX) {
++	if (port_entry != eptr && *eptr == '\0' &&
++	    port_tmp <= UINT16_MAX) {
+ 		*port = port_tmp;
+ 		return true;
+ 	}
+--- apparmor-4.0.0-beta3.orig/parser/network.h
++++ apparmor-4.0.0-beta3/parser/network.h
+@@ -158,7 +158,7 @@
+ 	/* empty constructor used only for the profile to access
+ 	 * static elements to maintain compatibility with
+ 	 * AA_CLASS_NET */
+-	network_rule(): dedup_perms_rule_t(AA_CLASS_NETV8) { }
++	network_rule(): dedup_perms_rule_t(AA_CLASS_NETV8), label(NULL) { }
+ 	network_rule(perm32_t perms_p, struct cond_entry *conds,
+ 		     struct cond_entry *peer_conds);
+ 	network_rule(perm32_t perms_p, const char *family, const char *type,

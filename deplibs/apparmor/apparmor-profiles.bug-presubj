@@ -1,0 +1,8 @@
+Please report upstream any problem with an AppArmor profile that is
+included in the apparmor-profiles package:
+
+  https://gitlab.com/apparmor/apparmor/-/issues
+
+The apparmor-profiles package exists solely to provide a way for users
+to test these experimental profiles and help improve them upstream
+if needed. Do not expect these profiles to work out-of-the-box.

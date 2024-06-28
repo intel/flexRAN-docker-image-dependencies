@@ -1,0 +1,2 @@
+# If this README was elsewhere, it would be missed by even more people.
+apparmor-profiles binary: package-contains-documentation-outside-usr-share-doc [usr/share/apparmor/extra-profiles/README]

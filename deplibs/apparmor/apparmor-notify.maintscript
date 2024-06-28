@@ -1,0 +1,1 @@
+mv_conffile /etc/xdg/autostart/apparmor-notify.desktop /etc/xdg/autostart/aa-notify.desktop 3.0.5-1~

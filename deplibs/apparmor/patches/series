@@ -1,0 +1,15 @@
+debian/add-debian-integration-to-lighttpd.patch
+debian/libapparmor-layout-deb.patch
+debian/etc-writable.patch
+debian/Enable-writing-cache.patch
+# debian-only/pin-feature-set.patch
+# debian-only/aa-notify-point-to-Debian-documentation.patch
+# debian-only/Document-which-AppArmor-features-are-not-supported-on-Deb.patch
+ubuntu/communitheme-snap-support.patch
+ubuntu/mimeinfo-snap-support.patch
+ubuntu/profiles-grant-access-to-systemd-resolved.patch
+ubuntu/samba-systemd-interaction.patch
+ubuntu/userns-runtime-disable.patch
+ubuntu/parser-add-support-for-prompting.patch
+ubuntu/parser-fix-issues-appointed-by-coverity.patch
+ubuntu/profiles-add-unconfined-profile-for-tuxedo-control-c.patch
