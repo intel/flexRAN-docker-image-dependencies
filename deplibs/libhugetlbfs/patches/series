@@ -1,3 +1,0 @@
-0001-Makefile-Fix-version-discovery.patch
-0002-Append-version-to-soname.patch
-0003-Disable-hugepage-backed-malloc-if-__morecore-is-not-.patch

@@ -1,4 +1,0 @@
-usr/share/man/man3/get_huge_pages.3.gz usr/share/man/man3/free_huge_pages.3.gz
-usr/share/man/man3/get_hugepage_region.3.gz usr/share/man/man3/free_hugepage_region.3.gz
-usr/share/man/man3/hugetlbfs_unlinked_fd.3.gz usr/share/man/man3/hugetlbfs_unlinked_fd_for_size.3.gz
-usr/share/man/man3/hugetlbfs_find_path.3.gz usr/share/man/man3/hugetlbfs_find_path_for_size.3.gz

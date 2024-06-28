@@ -1,8 +1,0 @@
-man/get_huge_pages.3
-man/get_hugepage_region.3
-man/gethugepagesize.3
-man/gethugepagesizes.3
-man/getpagesizes.3
-man/hugetlbfs_find_path.3
-man/hugetlbfs_test_path.3
-man/hugetlbfs_unlinked_fd.3

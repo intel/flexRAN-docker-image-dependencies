@@ -1,0 +1,7 @@
+# DP: updates from the 13 branch upto 20231005 (documentation).
+
+LANG=C git diff --no-renames --src-prefix=a/src/ --dst-prefix=b/src/ \
+	c891d8dc23e1a46ad9f3e757d09e57b500d40044 2ef5adc5f5a7a5046964276e4354e47eedc96620 \
+	| awk '/^diff .*\.texi/ {skip=0; print; next} /^diff / {skip=1; next} skip==0' \
+        | grep -v -E '^(diff|index)'
+

@@ -1,0 +1,108 @@
+--- a/aclocal.m4
++++ b/aclocal.m4
+@@ -963,8 +963,8 @@ _bash_needmsg=
+ fi
+ AC_CACHE_VAL(bash_cv_termcap_lib,
+ [AC_CHECK_FUNC(tgetent, bash_cv_termcap_lib=libc,
+-  [AC_CHECK_LIB(termcap, tgetent, bash_cv_termcap_lib=libtermcap,
+-    [AC_CHECK_LIB(tinfo, tgetent, bash_cv_termcap_lib=libtinfo,
++  [AC_CHECK_LIB(tinfo, tgetent, bash_cv_termcap_lib=libtinfo,
++     [AC_CHECK_LIB(termcap, tgetent, bash_cv_termcap_lib=libtermcap,
+         [AC_CHECK_LIB(curses, tgetent, bash_cv_termcap_lib=libcurses,
+ 	    [AC_CHECK_LIB(ncurses, tgetent, bash_cv_termcap_lib=libncurses,
+                 [AC_CHECK_LIB(ncursesw, tgetent, bash_cv_termcap_lib=libncursesw,
+--- a/configure
++++ b/configure
+@@ -3758,7 +3758,7 @@ ac_clean_files="$ac_clean_files conftest
+ # the compiler is broken, or we cross compile.
+ { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether we are cross compiling" >&5
+ printf %s "checking whether we are cross compiling... " >&6; }
+-if false && test "$cross_compiling" != yes; then
++if test "$cross_compiling" != yes; then
+   { { ac_try="$ac_link"
+ case "(($ac_try" in
+   *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+@@ -7076,14 +7076,14 @@ if test "x$ac_cv_func_tgetent" = xyes
+ then :
+   bash_cv_termcap_lib=libc
+ else $as_nop
+-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in -ltermcap" >&5
+-printf %s "checking for tgetent in -ltermcap... " >&6; }
+-if test ${ac_cv_lib_termcap_tgetent+y}
++  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in -ltinfo" >&5
++printf %s "checking for tgetent in -ltinfo... " >&6; }
++if test ${ac_cv_lib_tinfo_tgetent+y}
+ then :
+   printf %s "(cached) " >&6
+ else $as_nop
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-ltermcap  $LIBS"
++LIBS="-ltinfo  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -7101,28 +7101,28 @@ return tgetent ();
+ _ACEOF
+ if ac_fn_c_try_link "$LINENO"
+ then :
+-  ac_cv_lib_termcap_tgetent=yes
++  ac_cv_lib_tinfo_tgetent=yes
+ else $as_nop
+-  ac_cv_lib_termcap_tgetent=no
++  ac_cv_lib_tinfo_tgetent=no
+ fi
+ rm -f core conftest.err conftest.$ac_objext conftest.beam \
+     conftest$ac_exeext conftest.$ac_ext
+ LIBS=$ac_check_lib_save_LIBS
+ fi
+-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_termcap_tgetent" >&5
+-printf "%s\n" "$ac_cv_lib_termcap_tgetent" >&6; }
+-if test "x$ac_cv_lib_termcap_tgetent" = xyes
++{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_tinfo_tgetent" >&5
++printf "%s\n" "$ac_cv_lib_tinfo_tgetent" >&6; }
++if test "x$ac_cv_lib_tinfo_tgetent" = xyes
+ then :
+-  bash_cv_termcap_lib=libtermcap
++  bash_cv_termcap_lib=libtinfo
+ else $as_nop
+-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in -ltinfo" >&5
+-printf %s "checking for tgetent in -ltinfo... " >&6; }
+-if test ${ac_cv_lib_tinfo_tgetent+y}
++  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in -ltermcap" >&5
++printf %s "checking for tgetent in -ltermcap... " >&6; }
++if test ${ac_cv_lib_termcap_tgetent+y}
+ then :
+   printf %s "(cached) " >&6
+ else $as_nop
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-ltinfo  $LIBS"
++LIBS="-ltermcap  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -7140,19 +7140,19 @@ return tgetent ();
+ _ACEOF
+ if ac_fn_c_try_link "$LINENO"
+ then :
+-  ac_cv_lib_tinfo_tgetent=yes
++  ac_cv_lib_termcap_tgetent=yes
+ else $as_nop
+-  ac_cv_lib_tinfo_tgetent=no
++  ac_cv_lib_termcap_tgetent=no
+ fi
+ rm -f core conftest.err conftest.$ac_objext conftest.beam \
+     conftest$ac_exeext conftest.$ac_ext
+ LIBS=$ac_check_lib_save_LIBS
+ fi
+-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_tinfo_tgetent" >&5
+-printf "%s\n" "$ac_cv_lib_tinfo_tgetent" >&6; }
+-if test "x$ac_cv_lib_tinfo_tgetent" = xyes
++{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_termcap_tgetent" >&5
++printf "%s\n" "$ac_cv_lib_termcap_tgetent" >&6; }
++if test "x$ac_cv_lib_termcap_tgetent" = xyes
+ then :
+-  bash_cv_termcap_lib=libtinfo
++  bash_cv_termcap_lib=libtermcap
+ else $as_nop
+   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in -lcurses" >&5
+ printf %s "checking for tgetent in -lcurses... " >&6; }

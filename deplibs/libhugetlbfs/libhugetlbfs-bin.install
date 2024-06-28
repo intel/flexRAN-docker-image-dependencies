@@ -1,3 +1,0 @@
-usr/bin/*
-usr/share/libhugetlbfs/ldscripts
-usr/share/libhugetlbfs/ld.hugetlbfs usr/bin
